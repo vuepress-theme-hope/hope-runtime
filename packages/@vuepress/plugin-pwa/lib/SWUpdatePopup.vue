@@ -6,13 +6,10 @@
       :message="message"
       :buttonText="buttonText"
     >
-      <div
-        v-if="enabled"
-        class="sw-update-popup"
-      >
+      <div v-if="enabled" class="sw-update-popup">
         {{ message }}
 
-        <br>
+        <br />
 
         <button @click="reload">
           {{ buttonText }}
@@ -24,62 +21,62 @@
 
 <script>
 /* global SW_UPDATE_POPUP */
-import event from './event'
-import { normalizeConfig } from '@app/util'
-import { popupConfig as defaultPopupConfig } from './i18n'
+import event from "./event";
+import { normalizeConfig } from "@app/util";
+import { popupConfig as defaultPopupConfig } from "./i18n";
 
 export default {
-  name: 'SWUpdatePopup',
+  name: "SWUpdatePopup",
 
-  data () {
+  data() {
     return {
       rawPopupConfig: SW_UPDATE_POPUP,
-      updateEvent: null
-    }
+      updateEvent: null,
+    };
   },
 
   computed: {
-    popupConfig () {
-      return normalizeConfig(this, this.rawPopupConfig)
+    popupConfig() {
+      return normalizeConfig(this, this.rawPopupConfig);
     },
 
-    enabled () {
-      return Boolean(this.popupConfig && this.updateEvent)
+    enabled() {
+      return Boolean(this.popupConfig && this.updateEvent);
     },
 
-    message () {
-      const c = this.popupConfig
-      return (c && c.message) || defaultPopupConfig['/'].message
+    message() {
+      const c = this.popupConfig;
+      return (c && c.message) || defaultPopupConfig["/"].message;
     },
 
-    buttonText () {
-      const c = this.popupConfig
-      return (c && c.buttonText) || defaultPopupConfig['/'].buttonText
-    }
+    buttonText() {
+      const c = this.popupConfig;
+      return (c && c.buttonText) || defaultPopupConfig["/"].buttonText;
+    },
   },
 
-  created () {
-    event.$on('sw-updated', this.onSWUpdated)
+  created() {
+    event.$on("sw-updated", this.onSWUpdated);
     if (SW_UPDATE_POPUP === true) {
-      this.rawPopupConfig = defaultPopupConfig
+      this.rawPopupConfig = defaultPopupConfig;
     }
   },
 
   methods: {
-    onSWUpdated (e) {
-      this.updateEvent = e
+    onSWUpdated(e) {
+      this.updateEvent = e;
     },
 
-    reload () {
+    reload() {
       if (this.updateEvent) {
         this.updateEvent.skipWaiting().then(() => {
-          location.reload(true)
-        })
-        this.updateEvent = null
+          location.reload(true);
+        });
+        this.updateEvent = null;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -101,11 +98,13 @@ export default {
   padding: 0.25em 2em;
 }
 
-.sw-update-popup-enter-active, .sw-update-popup-leave-active {
+.sw-update-popup-enter-active,
+.sw-update-popup-leave-active {
   transition: opacity 0.3s, transform 0.3s;
 }
 
-.sw-update-popup-enter, .sw-update-popup-leave-to {
+.sw-update-popup-enter,
+.sw-update-popup-leave-to {
   opacity: 0;
   transform: translate(0, 50%) scale(0.5);
 }

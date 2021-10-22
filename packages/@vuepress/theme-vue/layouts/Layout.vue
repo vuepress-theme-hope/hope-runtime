@@ -10,17 +10,17 @@
 </template>
 
 <script>
-import ParentLayout from '@parent-theme/layouts/Layout.vue'
-import CarbonAds from '@theme/components/CarbonAds.vue'
-import BuySellAds from '@theme/components/BuySellAds.vue'
+import ParentLayout from "@parent-theme/layouts/Layout.vue";
+import CarbonAds from "@theme/components/CarbonAds.vue";
+import BuySellAds from "@theme/components/BuySellAds.vue";
 
 export default {
-  name: 'Layout',
+  name: "Layout",
 
   components: {
     ParentLayout,
     CarbonAds,
-    BuySellAds
-  }
-}
+    BuySellAds,
+  },
+};
 </script>
