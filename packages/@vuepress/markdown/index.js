@@ -96,10 +96,14 @@ module.exports = (markdown = {}) => {
     .use(anchorPlugin, [
       Object.assign(
         {
+          level: [1, 2, 3, 4, 5, 6],
           slugify,
-          permalink: true,
-          permalinkBefore: true,
-          permalinkSymbol: "#",
+          permalink: anchorPlugin.permalink.ariaHidden({
+            class: "header-anchor",
+            symbol: "#",
+            space: true,
+            placement: "before",
+          }),
         },
         anchor
       ),

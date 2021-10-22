@@ -97,21 +97,6 @@ module.exports = (ctx) => ({
     },
   },
   plugins: [
-    ["@vuepress/back-to-top", true],
-    [
-      "@vuepress/pwa",
-      {
-        serviceWorker: true,
-        updatePopup: true,
-      },
-    ],
-    ["@vuepress/medium-zoom", true],
-    [
-      "@vuepress/google-analytics",
-      {
-        ga: "UA-128189152-1",
-      },
-    ],
     [
       "container",
       {

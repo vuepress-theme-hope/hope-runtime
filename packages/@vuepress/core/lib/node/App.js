@@ -147,15 +147,6 @@ module.exports = class App {
    */
 
   applyInternalPlugins() {
-    const themeConfig = this.themeConfig;
-    const siteConfig = this.siteConfig;
-
-    const shouldUseLastUpdated =
-      themeConfig.lastUpdated ||
-      Object.keys((siteConfig.locales && themeConfig.locales) || {}).some(
-        (base) => themeConfig.locales[base].lastUpdated
-      );
-
     this.pluginAPI
       // internl core plugins
       .use(require("./internal-plugins/siteData"))
@@ -179,7 +170,6 @@ module.exports = class App {
         before: "<div v-pre>",
         after: "</div>",
       })
-      .use("@vuepress/last-updated", !!shouldUseLastUpdated)
       .use("@vuepress/register-components", {
         componentsDir: [
           path.resolve(this.sourceDir, ".vuepress/components"),
