@@ -245,13 +245,18 @@ module.exports = function createBaseConfig(context, isServer) {
         }
       }
 
-      rule.use("css-loader").loader("css-loader").options({
-        modules,
-        localIdentName: `[local]_[hash:base64:8]`,
-        importLoaders: 1,
-        sourceMap: !isProd,
-        exportOnlyLocals: isServer,
-      });
+      rule
+        .use("css-loader")
+        .loader("css-loader")
+        .options({
+          modules: {
+            auto: modules === false ? false : undefined,
+            localIdentName: `[local]_[hash:base64:8]`,
+            exportOnlyLocals: isServer,
+          },
+          importLoaders: 1,
+          sourceMap: !isProd,
+        });
 
       rule
         .use("postcss-loader")
@@ -259,7 +264,9 @@ module.exports = function createBaseConfig(context, isServer) {
         .options(
           Object.assign(
             {
-              plugins: [require("autoprefixer")],
+              postcssOptions: {
+                plugins: [require("autoprefixer")],
+              },
               sourceMap: !isProd,
             },
             siteConfig.postcss
@@ -282,17 +289,7 @@ module.exports = function createBaseConfig(context, isServer) {
     Object.assign({ indentedSyntax: true }, siteConfig.sass)
   );
   createCSSRule("less", /\.less$/, "less-loader", siteConfig.less);
-  createCSSRule(
-    "stylus",
-    /\.styl(us)?$/,
-    "stylus-loader",
-    Object.assign(
-      {
-        preferPathResolver: "webpack",
-      },
-      siteConfig.stylus
-    )
-  );
+  createCSSRule("stylus", /\.styl(us)?$/, "stylus-loader", siteConfig.stylus);
 
   config.plugin("vue-loader").use(VueLoaderPlugin);
 

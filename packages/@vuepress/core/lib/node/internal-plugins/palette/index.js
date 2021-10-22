@@ -12,11 +12,16 @@ module.exports = (options, ctx) => ({
     const configFile = ctx.getLibFilePath("client/style/config.styl");
     if (!ctx.siteConfig.stylus) {
       ctx.siteConfig.stylus = {
-        import: [configFile],
+        stylusOptions: {
+          import: [configFile],
+        },
       };
     } else if (isPlainObject(ctx.siteConfig.stylus)) {
-      ctx.siteConfig.stylus.import = (
-        ctx.siteConfig.stylus.import || []
+      if (!ctx.siteConfig.stylus.stylusOptions)
+        ctx.siteConfig.stylus.stylusOptions = {};
+
+      ctx.siteConfig.stylus.stylusOptions.import = (
+        ctx.siteConfig.stylus.stylusOptions.import || []
       ).concat([configFile]);
     }
 
