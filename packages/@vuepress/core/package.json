@@ -37,7 +37,7 @@
     "@vuepress/shared-utils": "1.8.2",
     "autoprefixer": "^9.5.1",
     "babel-loader": "^8.2.3",
-    "cache-loader": "^3.0.0",
+    "cache-loader": "^4.1.0",
     "chokidar": "^3.5.2",
     "connect-history-api-fallback": "^1.6.0",
     "copy-webpack-plugin": "^5.0.2",
