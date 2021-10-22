@@ -68,7 +68,7 @@
     "webpackbar": "3.2.0"
   },
   "engines": {
-    "node": ">=8.6"
+    "node": ">=12.12"
   },
   "publishConfig": {
     "access": "public"

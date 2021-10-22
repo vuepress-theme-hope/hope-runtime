@@ -28,9 +28,6 @@
   "bin": {
     "vuepress": "cli.js"
   },
-  "scripts": {
-    "postinstall": "opencollective-postinstall || exit 0"
-  },
   "browserslist": [
     ">1%"
   ],
@@ -39,14 +36,9 @@
     "@vuepress/theme-default": "1.8.2",
     "cac": "^6.7.11",
     "envinfo": "^7.8.1",
-    "opencollective-postinstall": "^2.0.3",
     "update-notifier": "^5.1.0"
   },
   "engines": {
-    "node": ">=8.6"
-  },
-  "collective": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/vuepress"
+    "node": ">=12.12"
   }
 }
