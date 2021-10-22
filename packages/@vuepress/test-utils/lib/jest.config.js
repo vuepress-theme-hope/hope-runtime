@@ -5,15 +5,16 @@ module.exports = {
   verbose: true,
   testURL: "http://localhost/",
   moduleFileExtensions: ["js", "vue", "ts", "json"],
+  testEnvironment: "jsdom",
   testRegex: "(/__test__/.*|(\\.|/)(test|spec))\\.(ts|js)?$",
   testPathIgnorePatterns: ["test.js", path.resolve(__dirname, "../test")],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/$1",
   },
   transform: {
-    "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-    ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest",
-    "^.+\\.ts?$": "<rootDir>/node_modules/ts-jest",
+    "^.+\\.js$": "babel-jest",
+    ".*\\.(vue)$": "@vue/vue2-jest",
+    "^.+\\.ts?$": "ts-jest",
   },
   snapshotSerializers: ["<rootDir>/node_modules/jest-serializer-vue"],
 };
