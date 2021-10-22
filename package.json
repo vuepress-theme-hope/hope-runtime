@@ -54,7 +54,7 @@
     "@types/lru-cache": "^5.1.0",
     "@types/node": "^12.7.5",
     "@types/semver": "^6.0.0",
-    "@typescript-eslint/eslint-plugin": "^2.9.0",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.9.0",
     "all-contributors-cli": "^6.9.1",
     "conventional-changelog-cli": "^2.0.23",
