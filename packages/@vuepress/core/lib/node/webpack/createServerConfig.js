@@ -34,7 +34,9 @@ module.exports = function createServerConfig(ctx) {
 
   const publicDir = path.resolve(sourceDir, ".vuepress/public");
   if (fs.existsSync(publicDir)) {
-    config.plugin("copy").use(CopyPlugin, [[{ from: publicDir, to: outDir }]]);
+    config
+      .plugin("copy")
+      .use(CopyPlugin, [{ patterns: [{ from: publicDir, to: outDir }] }]);
   }
 
   if (!env.isDebug) {
