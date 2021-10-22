@@ -42,7 +42,7 @@ function parseConfig(file) {
   switch (extension) {
     case ".yml":
     case ".yaml":
-      data = yamlParser.safeLoad(content);
+      data = yamlParser.load(content);
       break;
 
     case ".toml": {

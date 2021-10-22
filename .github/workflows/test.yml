@@ -54,8 +54,5 @@ jobs:
       - name: Check linter
         run: yarn lint
 
-      - name: Check markdown linter
-        run: yarn workspace docs lint-md
-
       - name: Build docs
         run: yarn build:docs
