@@ -5,6 +5,9 @@ module.exports = {
   verbose: true,
   testURL: "http://localhost/",
   moduleFileExtensions: ["js", "vue", "ts", "json"],
+  globals: {
+    setImmediate,
+  },
   testEnvironment: "jsdom",
   testRegex: "(/__test__/.*|(\\.|/)(test|spec))\\.(ts|js)?$",
   testPathIgnorePatterns: ["test.js", path.resolve(__dirname, "../test")],

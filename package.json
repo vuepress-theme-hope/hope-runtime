@@ -52,7 +52,6 @@
     "@commitlint/config-conventional": "^13.2.0",
     "@types/escape-html": "^1.0.1",
     "@types/fs-extra": "^9.0.13",
-    "@types/globby": "^9.1.0",
     "@types/hash-sum": "^1.0.0",
     "@types/lru-cache": "^5.1.1",
     "@types/node": "^16.11.3",

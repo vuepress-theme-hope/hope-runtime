@@ -156,12 +156,16 @@ describe("resolveTheme", () => {
 
   test("relative path", () => {
     const resolved = resolveTheme("./theme-a");
-    expect(resolved.entry).toBe(path.resolve(__dirname, "./fixtures/theme-a"));
+    expect(resolved.entry.split("/").join(path.sep)).toBe(
+      path.resolve(__dirname, "./fixtures/theme-a")
+    );
   });
 
   test("absolute path", () => {
     const resolved = resolveTheme(path.resolve(__dirname, "fixtures/theme-a"));
-    expect(resolved.entry).toBe(path.resolve(__dirname, "./fixtures/theme-a"));
+    expect(resolved.entry.split("/").join(path.sep)).toBe(
+      path.resolve(__dirname, "./fixtures/theme-a")
+    );
   });
 
   test("theme that cannot be resolved", () => {

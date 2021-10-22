@@ -30,7 +30,6 @@
   "devDependencies": {
     "@textlint-rule/textlint-rule-no-unmatched-pair": "^1.0.7",
     "@vuepress/plugin-google-analytics": "1.8.2",
-    "@vuepress/theme-vue": "1.8.2",
     "remark-cli": "^9.0.0",
     "remark-lint": "^6.0.5",
     "remark-preset-lint-consistent": "^2.0.3",
