@@ -8,14 +8,7 @@
       xmlns:xlink="http://www.w3.org/1999/xlink"
     >
       <defs>
-        <rect
-          id="path-1"
-          x="140"
-          y="0"
-          width="549"
-          height="176"
-          rx="20"
-        />
+        <rect id="path-1" x="140" y="0" width="549" height="176" rx="20" />
         <mask
           id="mask-2"
           maskContentUnits="userSpaceOnUse"
@@ -55,14 +48,8 @@
             font-weight="normal"
             fill="#FFFFFF"
           >
-            <tspan
-              x="186.79"
-              y="85"
-            >Markdown </tspan>
-            <tspan
-              x="211.43"
-              y="113"
-            >File 1</tspan>
+            <tspan x="186.79" y="85">Markdown</tspan>
+            <tspan x="211.43" y="113">File 1</tspan>
           </text>
           <circle
             id="Oval"
@@ -79,14 +66,8 @@
             font-weight="normal"
             fill="#FFFFFF"
           >
-            <tspan
-              x="366.79"
-              y="85"
-            >Markdown </tspan>
-            <tspan
-              x="389.44"
-              y="113"
-            >File 2</tspan>
+            <tspan x="366.79" y="85">Markdown</tspan>
+            <tspan x="389.44" y="113">File 2</tspan>
           </text>
           <circle
             id="Oval"
@@ -105,14 +86,8 @@
             font-weight="normal"
             fill="#FFFFFF"
           >
-            <tspan
-              x="381.272"
-              y="312"
-            >Layout</tspan>
-            <tspan
-              x="354.572"
-              y="345"
-            >Component</tspan>
+            <tspan x="381.272" y="312">Layout</tspan>
+            <tspan x="354.572" y="345">Component</tspan>
           </text>
           <circle
             id="Oval"
@@ -129,14 +104,8 @@
             font-weight="normal"
             fill="#FFFFFF"
           >
-            <tspan
-              x="546.79"
-              y="85"
-            >Markdown </tspan>
-            <tspan
-              x="569.44"
-              y="113"
-            >File 3</tspan>
+            <tspan x="546.79" y="85">Markdown</tspan>
+            <tspan x="569.44" y="113">File 3</tspan>
           </text>
           <use
             id="Rectangle"
@@ -172,10 +141,7 @@
             font-size="25"
             font-weight="700"
           >
-            <tspan
-              x="0.06640625"
-              y="28"
-            >Provider</tspan>
+            <tspan x="0.06640625" y="28">Provider</tspan>
           </text>
           <text
             id="Consumer"
@@ -184,10 +150,7 @@
             font-size="25"
             font-weight="700"
           >
-            <tspan
-              x="0.243896484"
-              y="327"
-            >Consumer</tspan>
+            <tspan x="0.243896484" y="327">Consumer</tspan>
           </text>
           <path
             id="Line-2"
