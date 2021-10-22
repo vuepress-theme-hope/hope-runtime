@@ -1,7 +1,6 @@
 ---
 name: Feature request
 about: Suggest an idea for this project
-
 ---
 
 <!-- Please don't delete this template or we'll close your issue -->
@@ -9,8 +8,7 @@ about: Suggest an idea for this project
 
 ## Feature request
 
-<!-- Please ask questions on StackOverflow. -->
-<!-- https://stackoverflow.com/questions/ask?tags=vuepress -->
+<!-- Please ask questions via dicussion instead of opening a issue -->
 <!-- Issues which contain questions or support requests will be closed. -->
 
 #### What problem does this feature solve?

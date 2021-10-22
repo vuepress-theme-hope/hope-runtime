@@ -1,7 +1,6 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-
 ---
 
 <!-- Please don't delete this template or we'll close your issue -->
@@ -13,10 +12,7 @@ about: Create a report to help us improve
 
 - [ ] I confirm that this is an issue rather than a question.
 
-<!-- Please ask questions via following several ways. -->
-<!-- https://vue-land.js.org/ -->
-<!-- https://forum.vuejs.org/ -->
-<!-- https://stackoverflow.com/questions/ask?tags=vuepress -->
+<!-- Please ask questions via dicussion instead of opening a issue -->
 
 ## Bug report
 
