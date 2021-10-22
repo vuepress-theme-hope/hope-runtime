@@ -27,11 +27,11 @@
 <script>
 export default {
   computed: {
-    openInNewWindowTitle () {
-      return this.$themeLocaleConfig.openNewWindowText || '(opens new window)'
-    }
-  }
-}
+    openInNewWindowTitle() {
+      return this.$themeLocaleConfig.openNewWindowText || "(opens new window)";
+    },
+  },
+};
 </script>
 
 <style>

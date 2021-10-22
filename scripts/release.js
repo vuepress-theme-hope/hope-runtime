@@ -27,111 +27,113 @@
 
  */
 
-process.env.VUE_CLI_RELEASE = true
+process.env.VUE_CLI_RELEASE = true;
 
-const fs = require('fs')
-const execa = require('execa')
-const semver = require('semver')
-const inquirer = require('inquirer')
+const fs = require("fs");
+const execa = require("execa");
+const semver = require("semver");
+const inquirer = require("inquirer");
 
-const curVersion = require('../lerna.json').version
+const curVersion = require("../lerna.json").version;
 
 const release = async () => {
-  console.log(`Current version: ${curVersion}`)
+  console.log(`Current version: ${curVersion}`);
 
-  const bumps = ['patch', 'minor', 'major', 'prerelease', 'premajor']
-  const versions = {}
-  bumps.forEach(b => {
-    versions[b] = semver.inc(curVersion, b)
-  })
-  const bumpChoices = bumps.map(b => ({ name: `${b} (${versions[b]})`, value: b }))
+  const bumps = ["patch", "minor", "major", "prerelease", "premajor"];
+  const versions = {};
+  bumps.forEach((b) => {
+    versions[b] = semver.inc(curVersion, b);
+  });
+  const bumpChoices = bumps.map((b) => ({
+    name: `${b} (${versions[b]})`,
+    value: b,
+  }));
 
-  function getVersion (answers) {
-    return answers.customVersion || versions[answers.bump]
+  function getVersion(answers) {
+    return answers.customVersion || versions[answers.bump];
   }
 
-  function getNpmTags (version) {
-    console.log(version)
+  function getNpmTags(version) {
+    console.log(version);
     if (isPreRelease(version)) {
-      return ['next', 'latest']
+      return ["next", "latest"];
     }
-    return ['latest', 'next']
+    return ["latest", "next"];
   }
 
-  function isPreRelease (version) {
-    return !!semver.prerelease(version)
+  function isPreRelease(version) {
+    return !!semver.prerelease(version);
   }
 
   const { bump, customVersion, npmTag } = await inquirer.prompt([
     {
-      name: 'bump',
-      message: 'Select release type:',
-      type: 'list',
-      choices: [
-        ...bumpChoices,
-        { name: 'custom', value: 'custom' }
-      ]
+      name: "bump",
+      message: "Select release type:",
+      type: "list",
+      choices: [...bumpChoices, { name: "custom", value: "custom" }],
     },
     {
-      name: 'customVersion',
-      message: 'Input version:',
-      type: 'input',
-      when: answers => answers.bump === 'custom'
+      name: "customVersion",
+      message: "Input version:",
+      type: "input",
+      when: (answers) => answers.bump === "custom",
     },
     {
-      name: 'npmTag',
-      message: 'Input npm tag:',
-      type: 'list',
-      default: answers => getNpmTags(getVersion(answers))[0],
-      choices: answers => getNpmTags(getVersion(answers))
-    }
-  ])
+      name: "npmTag",
+      message: "Input npm tag:",
+      type: "list",
+      default: (answers) => getNpmTags(getVersion(answers))[0],
+      choices: (answers) => getNpmTags(getVersion(answers)),
+    },
+  ]);
 
-  const version = customVersion || versions[bump]
+  const version = customVersion || versions[bump];
 
-  const { yes } = await inquirer.prompt([{
-    name: 'yes',
-    message: `Confirm releasing ${version} (${npmTag})?`,
-    type: 'list',
-    choices: ['N', 'Y']
-  }])
+  const { yes } = await inquirer.prompt([
+    {
+      name: "yes",
+      message: `Confirm releasing ${version} (${npmTag})?`,
+      type: "list",
+      choices: ["N", "Y"],
+    },
+  ]);
 
-  if (yes === 'N') {
-    console.log('[release] cancelled.')
-    return
+  if (yes === "N") {
+    console.log("[release] cancelled.");
+    return;
   }
 
   const releaseArguments = [
-    'publish',
+    "publish",
     version,
-    '--force-publish',
-    '--npm-tag',
+    "--force-publish",
+    "--npm-tag",
     npmTag,
-    '*'
-  ]
+    "*",
+  ];
 
-  console.log(`lerna ${releaseArguments.join(' ')}`)
+  console.log(`lerna ${releaseArguments.join(" ")}`);
 
-  await execa(require.resolve('lerna/cli'), releaseArguments, { stdio: 'inherit' })
+  await execa(require.resolve("lerna/cli"), releaseArguments, {
+    stdio: "inherit",
+  });
 
-  await execa('yarn', ['changelog'])
+  await execa("yarn", ["changelog"]);
 
   // cleanup changelog
   fs.writeFileSync(
-    'CHANGELOG.md',
-    fs.readFileSync('CHANGELOG.md')
-      .toString()
-      .split('\n')
-      .slice(4)
-      .join('\n')
-  )
+    "CHANGELOG.md",
+    fs.readFileSync("CHANGELOG.md").toString().split("\n").slice(4).join("\n")
+  );
 
-  await execa('git', ['add', '-A'], { stdio: 'inherit' })
-  await execa('git', ['commit', '-m', `chore: version ${version} changelog`], { stdio: 'inherit' })
-  await execa('git', ['push', 'origin', 'master'], { stdio: 'inherit' })
-}
+  await execa("git", ["add", "-A"], { stdio: "inherit" });
+  await execa("git", ["commit", "-m", `chore: version ${version} changelog`], {
+    stdio: "inherit",
+  });
+  await execa("git", ["push", "origin", "master"], { stdio: "inherit" });
+};
 
-release().catch(err => {
-  console.error(err)
-  process.exit(1)
-})
+release().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

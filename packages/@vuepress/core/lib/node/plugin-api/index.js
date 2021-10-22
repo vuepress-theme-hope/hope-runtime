@@ -1,31 +1,33 @@
-'use strict'
+"use strict";
 
 /**
  * Module dependencies.
  */
 
-const instantiateOption = require('./override/instantiateOption')
-const { flattenPlugin } = require('./util')
-const { PLUGIN_OPTION_MAP } = require('./constants')
+const instantiateOption = require("./override/instantiateOption");
+const { flattenPlugin } = require("./util");
+const { PLUGIN_OPTION_MAP } = require("./constants");
 const {
   moduleResolver: { getPluginResolver },
   datatypes: { assertTypes, isPlainObject },
-  logger, chalk, normalizeConfig
-} = require('@vuepress/shared-utils')
+  logger,
+  chalk,
+  normalizeConfig,
+} = require("@vuepress/shared-utils");
 
 /**
  * Expose PluginAPI class.
  */
 
 module.exports = class PluginAPI {
-  constructor (context) {
-    this.options = {}
-    this._pluginContext = context
-    this._pluginQueue = []
-    this._loggedPlugins = []
-    this._initialized = false
-    this._pluginResolver = getPluginResolver()
-    this.initializeOptions(PLUGIN_OPTION_MAP)
+  constructor(context) {
+    this.options = {};
+    this._pluginContext = context;
+    this._pluginQueue = [];
+    this._loggedPlugins = [];
+    this._initialized = false;
+    this._pluginResolver = getPluginResolver();
+    this.initializeOptions(PLUGIN_OPTION_MAP);
   }
 
   /**
@@ -35,8 +37,8 @@ module.exports = class PluginAPI {
    * @api public
    */
 
-  get enabledPlugins () {
-    return this._pluginQueue.filter(({ enabled }) => enabled)
+  get enabledPlugins() {
+    return this._pluginQueue.filter(({ enabled }) => enabled);
   }
 
   /**
@@ -46,8 +48,8 @@ module.exports = class PluginAPI {
    * @api public
    */
 
-  get disabledPlugins () {
-    return this._pluginQueue.filter(({ enabled }) => !enabled)
+  get disabledPlugins() {
+    return this._pluginQueue.filter(({ enabled }) => !enabled);
   }
 
   /**
@@ -56,15 +58,15 @@ module.exports = class PluginAPI {
    * @api public
    */
 
-  initialize () {
-    this._initialized = true
-    this._pluginQueue.forEach(plugin => {
+  initialize() {
+    this._initialized = true;
+    this._pluginQueue.forEach((plugin) => {
       if (plugin.enabled) {
-        this.applyPlugin(plugin)
+        this.applyPlugin(plugin);
       } else {
-        logger.debug(`${chalk.gray(`[${plugin.name}]`)} disabled.`)
+        logger.debug(`${chalk.gray(`[${plugin.name}]`)} disabled.`);
       }
-    })
+    });
   }
 
   /**
@@ -76,38 +78,43 @@ module.exports = class PluginAPI {
    * @api public
    */
 
-  use (pluginRaw, pluginOptions = {}) {
+  use(pluginRaw, pluginOptions = {}) {
     if (this._initialized) {
-      throw new Error(`Cannot add new plugins after initialization.`)
+      throw new Error(`Cannot add new plugins after initialization.`);
     }
 
-    let plugin
+    let plugin;
     if (isPlainObject(pluginRaw) && pluginRaw.$$normalized) {
-      plugin = pluginRaw
+      plugin = pluginRaw;
     } else {
       try {
-        plugin = this.normalizePlugin('plugin', pluginRaw, pluginOptions)
+        plugin = this.normalizePlugin("plugin", pluginRaw, pluginOptions);
       } catch (e) {
-        logger.warn(e.message)
-        return this
+        logger.warn(e.message);
+        return this;
       }
     }
 
     if (plugin.multiple !== true) {
-      const duplicateIndex = this._pluginQueue.findIndex(({ name }) => name === plugin.name)
+      const duplicateIndex = this._pluginQueue.findIndex(
+        ({ name }) => name === plugin.name
+      );
       if (duplicateIndex !== -1) {
-        this._pluginQueue.splice(duplicateIndex, 1)
+        this._pluginQueue.splice(duplicateIndex, 1);
       }
     }
 
-    this._pluginQueue.push(plugin)
+    this._pluginQueue.push(plugin);
 
     if (plugin.plugins) {
-      logger.debug(`Plugins defined at ${chalk.gray(plugin.name)}`, plugin.plugins)
-      this.useByPluginsConfig(plugin.plugins)
+      logger.debug(
+        `Plugins defined at ${chalk.gray(plugin.name)}`,
+        plugin.plugins
+      );
+      this.useByPluginsConfig(plugin.plugins);
     }
 
-    return this
+    return this;
   }
 
   /**
@@ -117,19 +124,19 @@ module.exports = class PluginAPI {
    * @api public
    */
 
-  normalizePlugin (type, pluginRaw, pluginOptions = {}) {
-    let plugin = this._pluginResolver.resolve(pluginRaw)
+  normalizePlugin(type, pluginRaw, pluginOptions = {}) {
+    let plugin = this._pluginResolver.resolve(pluginRaw);
     if (!plugin.entry) {
       if (plugin.error) {
-        logger.debug(plugin.error)
-        throw new Error(`An error was encountered in ${type} "${pluginRaw}"`)
+        logger.debug(plugin.error);
+        throw new Error(`An error was encountered in ${type} "${pluginRaw}"`);
       } else {
-        throw new Error(`Cannot resolve ${type} "${pluginRaw}"`)
+        throw new Error(`Cannot resolve ${type} "${pluginRaw}"`);
       }
     }
-    plugin = flattenPlugin(plugin, pluginOptions, this._pluginContext, this)
-    plugin.$$normalized = true
-    return plugin
+    plugin = flattenPlugin(plugin, pluginOptions, this._pluginContext, this);
+    plugin.$$normalized = true;
+    return plugin;
   }
 
   /**
@@ -140,12 +147,12 @@ module.exports = class PluginAPI {
    * @api public
    */
 
-  useByPluginsConfig (pluginsConfig) {
-    pluginsConfig = normalizeConfig(pluginsConfig)
+  useByPluginsConfig(pluginsConfig) {
+    pluginsConfig = normalizeConfig(pluginsConfig);
     pluginsConfig.forEach(([pluginRaw, pluginOptions]) => {
-      this.use(pluginRaw, pluginOptions)
-    })
-    return this
+      this.use(pluginRaw, pluginOptions);
+    });
+    return this;
   }
 
   /**
@@ -154,11 +161,11 @@ module.exports = class PluginAPI {
    * @api private
    */
 
-  initializeOptions () {
-    Object.keys(PLUGIN_OPTION_MAP).forEach(key => {
-      const option = PLUGIN_OPTION_MAP[key]
-      this.options[option.name] = instantiateOption(option)
-    })
+  initializeOptions() {
+    Object.keys(PLUGIN_OPTION_MAP).forEach((key) => {
+      const option = PLUGIN_OPTION_MAP[key];
+      this.options[option.name] = instantiateOption(option);
+    });
   }
 
   /**
@@ -171,19 +178,19 @@ module.exports = class PluginAPI {
    * @api private
    */
 
-  registerOption (key, value, pluginName) {
-    const option = PLUGIN_OPTION_MAP[key]
-    const types = option.types
-    const { valid, warnMsg } = assertTypes(value, types)
+  registerOption(key, value, pluginName) {
+    const option = PLUGIN_OPTION_MAP[key];
+    const types = option.types;
+    const { valid, warnMsg } = assertTypes(value, types);
     if (valid) {
-      this.options[option.name].add(pluginName, value)
+      this.options[option.name].add(pluginName, value);
     } else if (value !== undefined) {
       logger.warn(
-        `${chalk.gray(pluginName)} `
-        + `Invalid value for "option" ${chalk.cyan(option.name)}: ${warnMsg}`
-      )
+        `${chalk.gray(pluginName)} ` +
+          `Invalid value for "option" ${chalk.cyan(option.name)}: ${warnMsg}`
+      );
     }
-    return this
+    return this;
   }
 
   /**
@@ -192,7 +199,7 @@ module.exports = class PluginAPI {
    * @api private
    */
 
-  applyPlugin ({
+  applyPlugin({
     // info
     name: pluginName,
     shortcut,
@@ -218,34 +225,79 @@ module.exports = class PluginAPI {
     alias,
     extendCli,
     beforeDevServer,
-    afterDevServer
+    afterDevServer,
   }) {
     if (!this._loggedPlugins.includes(pluginName)) {
-      const isInternalPlugin = pluginName.startsWith('@vuepress/internal-')
-      logger[isInternalPlugin ? 'debug' : 'tip'](pluginLog(pluginName, shortcut))
-      this._loggedPlugins.push(pluginName)
+      const isInternalPlugin = pluginName.startsWith("@vuepress/internal-");
+      logger[isInternalPlugin ? "debug" : "tip"](
+        pluginLog(pluginName, shortcut)
+      );
+      this._loggedPlugins.push(pluginName);
     }
 
-    this
-      .registerOption(PLUGIN_OPTION_MAP.READY.key, ready, pluginName)
+    this.registerOption(PLUGIN_OPTION_MAP.READY.key, ready, pluginName)
       .registerOption(PLUGIN_OPTION_MAP.COMPILED.key, compiled, pluginName)
       .registerOption(PLUGIN_OPTION_MAP.UPDATED.key, updated, pluginName)
       .registerOption(PLUGIN_OPTION_MAP.GENERATED.key, generated, pluginName)
-      .registerOption(PLUGIN_OPTION_MAP.CHAIN_WEBPACK.key, chainWebpack, pluginName)
-      .registerOption(PLUGIN_OPTION_MAP.EXTEND_MARKDOWN.key, extendMarkdown, pluginName)
-      .registerOption(PLUGIN_OPTION_MAP.CHAIN_MARKDOWN.key, chainMarkdown, pluginName)
-      .registerOption(PLUGIN_OPTION_MAP.EXTEND_PAGE_DATA.key, extendPageData, pluginName)
-      .registerOption(PLUGIN_OPTION_MAP.ENHANCE_APP_FILES.key, enhanceAppFiles, pluginName)
+      .registerOption(
+        PLUGIN_OPTION_MAP.CHAIN_WEBPACK.key,
+        chainWebpack,
+        pluginName
+      )
+      .registerOption(
+        PLUGIN_OPTION_MAP.EXTEND_MARKDOWN.key,
+        extendMarkdown,
+        pluginName
+      )
+      .registerOption(
+        PLUGIN_OPTION_MAP.CHAIN_MARKDOWN.key,
+        chainMarkdown,
+        pluginName
+      )
+      .registerOption(
+        PLUGIN_OPTION_MAP.EXTEND_PAGE_DATA.key,
+        extendPageData,
+        pluginName
+      )
+      .registerOption(
+        PLUGIN_OPTION_MAP.ENHANCE_APP_FILES.key,
+        enhanceAppFiles,
+        pluginName
+      )
       .registerOption(PLUGIN_OPTION_MAP.OUT_FILES.key, outFiles, pluginName)
-      .registerOption(PLUGIN_OPTION_MAP.CLIENT_DYNAMIC_MODULES.key, clientDynamicModules, pluginName)
-      .registerOption(PLUGIN_OPTION_MAP.CLIENT_ROOT_MIXIN.key, clientRootMixin, pluginName)
-      .registerOption(PLUGIN_OPTION_MAP.ADDITIONAL_PAGES.key, additionalPages, pluginName)
-      .registerOption(PLUGIN_OPTION_MAP.GLOBAL_UI_COMPONENTS.key, globalUIComponents, pluginName)
+      .registerOption(
+        PLUGIN_OPTION_MAP.CLIENT_DYNAMIC_MODULES.key,
+        clientDynamicModules,
+        pluginName
+      )
+      .registerOption(
+        PLUGIN_OPTION_MAP.CLIENT_ROOT_MIXIN.key,
+        clientRootMixin,
+        pluginName
+      )
+      .registerOption(
+        PLUGIN_OPTION_MAP.ADDITIONAL_PAGES.key,
+        additionalPages,
+        pluginName
+      )
+      .registerOption(
+        PLUGIN_OPTION_MAP.GLOBAL_UI_COMPONENTS.key,
+        globalUIComponents,
+        pluginName
+      )
       .registerOption(PLUGIN_OPTION_MAP.DEFINE.key, define, pluginName)
       .registerOption(PLUGIN_OPTION_MAP.ALIAS.key, alias, pluginName)
       .registerOption(PLUGIN_OPTION_MAP.EXTEND_CLI.key, extendCli, pluginName)
-      .registerOption(PLUGIN_OPTION_MAP.BEFORE_DEV_SERVER.key, beforeDevServer, pluginName)
-      .registerOption(PLUGIN_OPTION_MAP.AFTER_DEV_SERVER.key, afterDevServer, pluginName)
+      .registerOption(
+        PLUGIN_OPTION_MAP.BEFORE_DEV_SERVER.key,
+        beforeDevServer,
+        pluginName
+      )
+      .registerOption(
+        PLUGIN_OPTION_MAP.AFTER_DEV_SERVER.key,
+        afterDevServer,
+        pluginName
+      );
   }
 
   /**
@@ -257,10 +309,10 @@ module.exports = class PluginAPI {
    * @api public
    */
 
-  applySyncOption (name, ...args) {
-    logger.debug('applySyncOption: ' + name)
-    this.getOption(name).apply(...args)
-    return this
+  applySyncOption(name, ...args) {
+    logger.debug("applySyncOption: " + name);
+    this.getOption(name).apply(...args);
+    return this;
   }
 
   /**
@@ -272,9 +324,9 @@ module.exports = class PluginAPI {
    * @api public
    */
 
-  async applyAsyncOption (name, ...args) {
-    logger.debug('applyAsyncOption: ' + name)
-    await this.getOption(name).apply(...args)
+  async applyAsyncOption(name, ...args) {
+    logger.debug("applyAsyncOption: " + name);
+    await this.getOption(name).apply(...args);
   }
 
   /**
@@ -285,16 +337,18 @@ module.exports = class PluginAPI {
    * @api public
    */
 
-  getOption (name) {
+  getOption(name) {
     if (!this.options[name]) {
-      throw new Error(`Unknown option ${name}`)
+      throw new Error(`Unknown option ${name}`);
     }
-    return this.options[name]
+    return this.options[name];
   }
-}
+};
 
-function pluginLog (name, shortcut) {
+function pluginLog(name, shortcut) {
   return shortcut
-    ? `Apply plugin ${chalk.magenta(shortcut)} ${chalk.gray(`(i.e. "${name}")`)} ...`
-    : `Apply plugin ${chalk.magenta(name)} ...`
+    ? `Apply plugin ${chalk.magenta(shortcut)} ${chalk.gray(
+        `(i.e. "${name}")`
+      )} ...`
+    : `Apply plugin ${chalk.magenta(name)} ...`;
 }

@@ -1,25 +1,30 @@
-'use strict'
+"use strict";
 
 /**
  * Module dependencies.
  */
 
-const createMarkdown = require('./createMarkdown')
-const loadConfig = require('./loadConfig')
-const loadTheme = require('./loadTheme')
-const { getCacheLoaderOptions } = require('./CacheLoader')
+const createMarkdown = require("./createMarkdown");
+const loadConfig = require("./loadConfig");
+const loadTheme = require("./loadTheme");
+const { getCacheLoaderOptions } = require("./CacheLoader");
 const {
-  fs, path, logger, chalk, globby, sort,
+  fs,
+  path,
+  logger,
+  chalk,
+  globby,
+  sort,
   datatypes: { isFunction },
-  fallback: { fsExistsFallback }
-} = require('@vuepress/shared-utils')
+  fallback: { fsExistsFallback },
+} = require("@vuepress/shared-utils");
 
-const Page = require('./Page')
-const ClientComputedMixin = require('./ClientComputedMixin')
-const PluginAPI = require('./plugin-api')
-const DevProcess = require('./dev')
-const BuildProcess = require('./build')
-const createTemp = require('./createTemp')
+const Page = require("./Page");
+const ClientComputedMixin = require("./ClientComputedMixin");
+const PluginAPI = require("./plugin-api");
+const DevProcess = require("./dev");
+const BuildProcess = require("./build");
+const createTemp = require("./createTemp");
 
 /**
  * Expose VuePressApp.
@@ -37,17 +42,20 @@ module.exports = class App {
    * }} options
    */
 
-  constructor (options = {}) {
-    this.isProd = process.env.NODE_ENV === 'production'
-    this.options = options
-    this.sourceDir = this.options.sourceDir || path.join(__dirname, 'docs.fallback')
-    logger.debug('sourceDir', this.sourceDir)
+  constructor(options = {}) {
+    this.isProd = process.env.NODE_ENV === "production";
+    this.options = options;
+    this.sourceDir =
+      this.options.sourceDir || path.join(__dirname, "docs.fallback");
+    logger.debug("sourceDir", this.sourceDir);
     if (!fs.existsSync(this.sourceDir)) {
-      logger.warn(`Source directory doesn't exist: ${chalk.yellow(this.sourceDir)}`)
+      logger.warn(
+        `Source directory doesn't exist: ${chalk.yellow(this.sourceDir)}`
+      );
     }
 
-    this.vuepressDir = path.resolve(this.sourceDir, '.vuepress')
-    this.libDir = path.join(__dirname, '../')
+    this.vuepressDir = path.resolve(this.sourceDir, ".vuepress");
+    this.libDir = path.join(__dirname, "../");
   }
 
   /**
@@ -57,38 +65,40 @@ module.exports = class App {
    * @api private
    */
 
-  async resolveConfigAndInitialize () {
+  async resolveConfigAndInitialize() {
     if (this.options.siteConfig) {
-      this.siteConfig = this.options.siteConfig
+      this.siteConfig = this.options.siteConfig;
     } else {
-      let siteConfig = loadConfig(this.vuepressDir)
+      let siteConfig = loadConfig(this.vuepressDir);
       if (isFunction(siteConfig)) {
-        siteConfig = await siteConfig(this)
+        siteConfig = await siteConfig(this);
       }
-      this.siteConfig = siteConfig
+      this.siteConfig = siteConfig;
     }
 
     // TODO custom cwd.
-    this.cwd = process.cwd()
+    this.cwd = process.cwd();
 
-    this.base = this.siteConfig.base || '/'
-    this.themeConfig = this.siteConfig.themeConfig || {}
+    this.base = this.siteConfig.base || "/";
+    this.themeConfig = this.siteConfig.themeConfig || {};
 
     // resolve tempPath
-    const rawTemp = this.options.temp || this.siteConfig.temp
-    const { tempPath, writeTemp } = createTemp(rawTemp)
-    this.tempPath = tempPath
-    this.writeTemp = writeTemp
+    const rawTemp = this.options.temp || this.siteConfig.temp;
+    const { tempPath, writeTemp } = createTemp(rawTemp);
+    this.tempPath = tempPath;
+    this.writeTemp = writeTemp;
 
     // resolve outDir
-    const rawOutDir = this.options.dest || this.siteConfig.dest
+    const rawOutDir = this.options.dest || this.siteConfig.dest;
     this.outDir = rawOutDir
-      ? require('path').resolve(this.cwd, rawOutDir)
-      : require('path').resolve(this.sourceDir, '.vuepress/dist')
+      ? require("path").resolve(this.cwd, rawOutDir)
+      : require("path").resolve(this.sourceDir, ".vuepress/dist");
 
-    this.pages = [] // Array<Page>
-    this.pluginAPI = new PluginAPI(this)
-    this.ClientComputedMixinConstructor = ClientComputedMixin(this.getSiteData())
+    this.pages = []; // Array<Page>
+    this.pluginAPI = new PluginAPI(this);
+    this.ClientComputedMixinConstructor = ClientComputedMixin(
+      this.getSiteData()
+    );
   }
 
   /**
@@ -99,33 +109,35 @@ module.exports = class App {
    * @api private
    */
 
-  async process () {
-    await this.resolveConfigAndInitialize()
-    this.normalizeHeadTagUrls()
-    this.themeAPI = loadTheme(this)
-    this.resolveTemplates()
-    this.resolveGlobalLayout()
+  async process() {
+    await this.resolveConfigAndInitialize();
+    this.normalizeHeadTagUrls();
+    this.themeAPI = loadTheme(this);
+    this.resolveTemplates();
+    this.resolveGlobalLayout();
 
-    this.applyInternalPlugins()
-    this.applyUserPlugins()
-    this.pluginAPI.initialize()
+    this.applyInternalPlugins();
+    this.applyUserPlugins();
+    this.pluginAPI.initialize();
 
-    this.markdown = createMarkdown(this)
+    this.markdown = createMarkdown(this);
 
-    await this.resolvePages()
+    await this.resolvePages();
 
-    await this.pluginAPI.applyAsyncOption('additionalPages', this)
+    await this.pluginAPI.applyAsyncOption("additionalPages", this);
     await Promise.all(
-      this.pluginAPI.getOption('additionalPages').appliedValues.map(async (options) => {
-        await this.addPage(options)
-      })
-    )
-    await this.pluginAPI.applyAsyncOption('ready')
+      this.pluginAPI
+        .getOption("additionalPages")
+        .appliedValues.map(async (options) => {
+          await this.addPage(options);
+        })
+    );
+    await this.pluginAPI.applyAsyncOption("ready");
     await Promise.all([
-      this.pluginAPI.applyAsyncOption('clientDynamicModules', this),
-      this.pluginAPI.applyAsyncOption('enhanceAppFiles', this),
-      this.pluginAPI.applyAsyncOption('globalUIComponents', this)
-    ])
+      this.pluginAPI.applyAsyncOption("clientDynamicModules", this),
+      this.pluginAPI.applyAsyncOption("enhanceAppFiles", this),
+      this.pluginAPI.applyAsyncOption("globalUIComponents", this),
+    ]);
   }
 
   /**
@@ -134,47 +146,48 @@ module.exports = class App {
    * @api private
    */
 
-  applyInternalPlugins () {
-    const themeConfig = this.themeConfig
-    const siteConfig = this.siteConfig
+  applyInternalPlugins() {
+    const themeConfig = this.themeConfig;
+    const siteConfig = this.siteConfig;
 
-    const shouldUseLastUpdated = (
-      themeConfig.lastUpdated
-      || Object.keys(siteConfig.locales && themeConfig.locales || {})
-        .some(base => themeConfig.locales[base].lastUpdated)
-    )
+    const shouldUseLastUpdated =
+      themeConfig.lastUpdated ||
+      Object.keys((siteConfig.locales && themeConfig.locales) || {}).some(
+        (base) => themeConfig.locales[base].lastUpdated
+      );
 
     this.pluginAPI
-    // internl core plugins
-      .use(require('./internal-plugins/siteData'))
-      .use(require('./internal-plugins/routes'))
-      .use(require('./internal-plugins/rootMixins'))
-      .use(require('./internal-plugins/enhanceApp'))
-      .use(require('./internal-plugins/palette'))
-      .use(require('./internal-plugins/style'))
-      .use(require('./internal-plugins/layoutComponents'))
-      .use(require('./internal-plugins/pageComponents'))
-      .use(require('./internal-plugins/transformModule'))
-      .use(require('./internal-plugins/dataBlock'))
-      .use(require('./internal-plugins/frontmatterBlock'))
-      .use('container', {
-        type: 'slot',
-        before: info => `<template #${info}>`,
-        after: '</template>'
+      // internl core plugins
+      .use(require("./internal-plugins/siteData"))
+      .use(require("./internal-plugins/routes"))
+      .use(require("./internal-plugins/rootMixins"))
+      .use(require("./internal-plugins/enhanceApp"))
+      .use(require("./internal-plugins/palette"))
+      .use(require("./internal-plugins/style"))
+      .use(require("./internal-plugins/layoutComponents"))
+      .use(require("./internal-plugins/pageComponents"))
+      .use(require("./internal-plugins/transformModule"))
+      .use(require("./internal-plugins/dataBlock"))
+      .use(require("./internal-plugins/frontmatterBlock"))
+      .use("container", {
+        type: "slot",
+        before: (info) => `<template #${info}>`,
+        after: "</template>",
       })
-      .use('container', {
-        type: 'v-pre',
-        before: '<div v-pre>',
-        after: '</div>'
+      .use("container", {
+        type: "v-pre",
+        before: "<div v-pre>",
+        after: "</div>",
       })
-      .use('@vuepress/last-updated', !!shouldUseLastUpdated)
-      .use('@vuepress/register-components', {
+      .use("@vuepress/last-updated", !!shouldUseLastUpdated)
+      .use("@vuepress/register-components", {
         componentsDir: [
-          path.resolve(this.sourceDir, '.vuepress/components'),
-          path.resolve(this.themeAPI.theme.path, 'global-components'),
-          this.themeAPI.existsParentTheme && path.resolve(this.themeAPI.parentTheme.path, 'global-components')
-        ]
-      })
+          path.resolve(this.sourceDir, ".vuepress/components"),
+          path.resolve(this.themeAPI.theme.path, "global-components"),
+          this.themeAPI.existsParentTheme &&
+            path.resolve(this.themeAPI.parentTheme.path, "global-components"),
+        ],
+      });
   }
 
   /**
@@ -183,15 +196,19 @@ module.exports = class App {
    * @api private
    */
 
-  applyUserPlugins () {
-    this.pluginAPI.useByPluginsConfig(this.options.plugins)
+  applyUserPlugins() {
+    this.pluginAPI.useByPluginsConfig(this.options.plugins);
     if (this.themeAPI.existsParentTheme) {
-      this.pluginAPI.use(this.themeAPI.parentTheme.entry)
+      this.pluginAPI.use(this.themeAPI.parentTheme.entry);
     }
     this.pluginAPI
       .use(this.themeAPI.theme.entry)
       .use(this.themeAPI.vuepressPlugin)
-      .use(Object.assign({}, this.siteConfig, { name: '@vuepress/internal-site-config' }))
+      .use(
+        Object.assign({}, this.siteConfig, {
+          name: "@vuepress/internal-site-config",
+        })
+      );
   }
 
   /**
@@ -200,21 +217,21 @@ module.exports = class App {
    * @api private
    */
 
-  normalizeHeadTagUrls () {
-    if (this.base !== '/' && this.siteConfig.head) {
-      this.siteConfig.head.forEach(tag => {
-        const attrs = tag[1]
+  normalizeHeadTagUrls() {
+    if (this.base !== "/" && this.siteConfig.head) {
+      this.siteConfig.head.forEach((tag) => {
+        const attrs = tag[1];
         if (attrs) {
           for (const name in attrs) {
-            if (name === 'src' || name === 'href') {
-              const value = attrs[name]
-              if (value.charAt(0) === '/') {
-                attrs[name] = this.base + value.slice(1)
+            if (name === "src" || name === "href") {
+              const value = attrs[name];
+              if (value.charAt(0) === "/") {
+                attrs[name] = this.base + value.slice(1);
               }
             }
           }
         }
-      })
+      });
     }
   }
 
@@ -222,8 +239,16 @@ module.exports = class App {
    * Resolve options of cache loader.
    */
 
-  resolveCacheLoaderOptions () {
-    Object.assign(this, (getCacheLoaderOptions(this.siteConfig, this.options, this.cwd, this.isProd)))
+  resolveCacheLoaderOptions() {
+    Object.assign(
+      this,
+      getCacheLoaderOptions(
+        this.siteConfig,
+        this.options,
+        this.cwd,
+        this.isProd
+      )
+    );
   }
 
   /**
@@ -239,27 +264,21 @@ module.exports = class App {
    * @api private
    */
 
-  resolveTemplates () {
-    this.devTemplate = this.resolveCommonAgreementFilePath(
-      'devTemplate',
-      {
-        defaultValue: this.getLibFilePath('client/index.dev.html'),
-        siteAgreement: 'templates/dev.html',
-        themeAgreement: 'templates/dev.html'
-      }
-    )
+  resolveTemplates() {
+    this.devTemplate = this.resolveCommonAgreementFilePath("devTemplate", {
+      defaultValue: this.getLibFilePath("client/index.dev.html"),
+      siteAgreement: "templates/dev.html",
+      themeAgreement: "templates/dev.html",
+    });
 
-    this.ssrTemplate = this.resolveCommonAgreementFilePath(
-      'ssrTemplate',
-      {
-        defaultValue: this.getLibFilePath('client/index.ssr.html'),
-        siteAgreement: 'templates/ssr.html',
-        themeAgreement: 'templates/ssr.html'
-      }
-    )
+    this.ssrTemplate = this.resolveCommonAgreementFilePath("ssrTemplate", {
+      defaultValue: this.getLibFilePath("client/index.ssr.html"),
+      siteAgreement: "templates/ssr.html",
+      themeAgreement: "templates/ssr.html",
+    });
 
-    logger.debug('SSR Template File: ' + chalk.gray(this.ssrTemplate))
-    logger.debug('DEV Template File: ' + chalk.gray(this.devTemplate))
+    logger.debug("SSR Template File: " + chalk.gray(this.ssrTemplate));
+    logger.debug("DEV Template File: " + chalk.gray(this.devTemplate));
   }
 
   /**
@@ -269,17 +288,14 @@ module.exports = class App {
    * @api private
    */
 
-  resolveGlobalLayout () {
-    this.globalLayout = this.resolveCommonAgreementFilePath(
-      'globalLayout',
-      {
-        defaultValue: this.getLibFilePath('client/components/GlobalLayout.vue'),
-        siteAgreement: `components/GlobalLayout.vue`,
-        themeAgreement: `layouts/GlobalLayout.vue`
-      }
-    )
+  resolveGlobalLayout() {
+    this.globalLayout = this.resolveCommonAgreementFilePath("globalLayout", {
+      defaultValue: this.getLibFilePath("client/components/GlobalLayout.vue"),
+      siteAgreement: `components/GlobalLayout.vue`,
+      themeAgreement: `layouts/GlobalLayout.vue`,
+    });
 
-    logger.debug('globalLayout: ' + chalk.gray(this.globalLayout))
+    logger.debug("globalLayout: " + chalk.gray(this.globalLayout));
   }
 
   /**
@@ -292,24 +308,25 @@ module.exports = class App {
    * @returns {string | void}
    */
 
-  resolveCommonAgreementFilePath (configKey, {
-    defaultValue,
-    siteAgreement,
-    themeAgreement
-  }) {
-    const siteConfigValue = this.siteConfig[configKey]
-    siteAgreement = this.resolveSiteAgreementFile(siteAgreement)
+  resolveCommonAgreementFilePath(
+    configKey,
+    { defaultValue, siteAgreement, themeAgreement }
+  ) {
+    const siteConfigValue = this.siteConfig[configKey];
+    siteAgreement = this.resolveSiteAgreementFile(siteAgreement);
 
-    const themeConfigValue = this.getThemeConfigValue(configKey)
-    themeAgreement = this.resolveThemeAgreementFile(themeAgreement)
+    const themeConfigValue = this.getThemeConfigValue(configKey);
+    themeAgreement = this.resolveThemeAgreementFile(themeAgreement);
 
-    return fsExistsFallback([
-      siteConfigValue,
-      siteAgreement,
-      themeConfigValue,
-      themeAgreement,
-      defaultValue
-    ].map(v => v))
+    return fsExistsFallback(
+      [
+        siteConfigValue,
+        siteAgreement,
+        themeConfigValue,
+        themeAgreement,
+        defaultValue,
+      ].map((v) => v)
+    );
   }
 
   /**
@@ -319,25 +336,29 @@ module.exports = class App {
    * @api private
    */
 
-  async resolvePages () {
+  async resolvePages() {
     // resolve pageFiles
-    const patterns = this.siteConfig.patterns ? this.siteConfig.patterns : ['**/*.md', '**/*.vue']
-    patterns.push('!.vuepress', '!node_modules')
+    const patterns = this.siteConfig.patterns
+      ? this.siteConfig.patterns
+      : ["**/*.md", "**/*.vue"];
+    patterns.push("!.vuepress", "!node_modules");
 
     if (this.siteConfig.dest) {
       // #654 exclude dest folder when dest dir was set in
       // sourceDir but not in '.vuepress'
-      const outDirRelative = path.relative(this.sourceDir, this.outDir)
-      if (!outDirRelative.includes('..')) {
-        patterns.push('!' + outDirRelative)
+      const outDirRelative = path.relative(this.sourceDir, this.outDir);
+      if (!outDirRelative.includes("..")) {
+        patterns.push("!" + outDirRelative);
       }
     }
-    const pageFiles = sort(await globby(patterns, { cwd: this.sourceDir }))
+    const pageFiles = sort(await globby(patterns, { cwd: this.sourceDir }));
 
-    await Promise.all(pageFiles.map(async (relative) => {
-      const filePath = path.resolve(this.sourceDir, relative)
-      await this.addPage({ filePath, relative })
-    }))
+    await Promise.all(
+      pageFiles.map(async (relative) => {
+        const filePath = path.resolve(this.sourceDir, relative);
+        await this.addPage({ filePath, relative });
+      })
+    );
   }
 
   /**
@@ -347,22 +368,23 @@ module.exports = class App {
    * @api public
    */
 
-  async addPage (options) {
-    options.permalinkPattern = this.siteConfig.permalink
-    options.extractHeaders = this.siteConfig.markdown && this.siteConfig.markdown.extractHeaders
-    const page = new Page(options, this)
+  async addPage(options) {
+    options.permalinkPattern = this.siteConfig.permalink;
+    options.extractHeaders =
+      this.siteConfig.markdown && this.siteConfig.markdown.extractHeaders;
+    const page = new Page(options, this);
     await page.process({
       markdown: this.markdown,
       computed: new this.ClientComputedMixinConstructor(),
-      enhancers: this.pluginAPI.getOption('extendPageData').items
-    })
-    const index = this.pages.findIndex(({ path }) => path === page.path)
+      enhancers: this.pluginAPI.getOption("extendPageData").items,
+    });
+    const index = this.pages.findIndex(({ path }) => path === page.path);
     if (index >= 0) {
       // Override a page if corresponding path already exists
-      logger.warn(`Override existing page ${chalk.yellow(page.path)}.`)
-      this.pages.splice(index, 1, page)
+      logger.warn(`Override existing page ${chalk.yellow(page.path)}.`);
+      this.pages.splice(index, 1, page);
     } else {
-      this.pages.push(page)
+      this.pages.push(page);
     }
   }
 
@@ -374,9 +396,11 @@ module.exports = class App {
    * @api private
    */
 
-  getThemeConfigValue (key) {
-    return this.themeAPI.theme.entry[key]
-      || this.themeAPI.existsParentTheme && this.themeAPI.parentTheme.entry[key]
+  getThemeConfigValue(key) {
+    return (
+      this.themeAPI.theme.entry[key] ||
+      (this.themeAPI.existsParentTheme && this.themeAPI.parentTheme.entry[key])
+    );
   }
 
   /**
@@ -387,15 +411,15 @@ module.exports = class App {
    * @returns {string|undefined}
    */
 
-  resolveThemeAgreementFile (filepath) {
-    const current = path.resolve(this.themeAPI.theme.path, filepath)
+  resolveThemeAgreementFile(filepath) {
+    const current = path.resolve(this.themeAPI.theme.path, filepath);
     if (fs.existsSync(current)) {
-      return current
+      return current;
     }
     if (this.themeAPI.existsParentTheme) {
-      const parent = path.resolve(this.themeAPI.parentTheme.path, filepath)
+      const parent = path.resolve(this.themeAPI.parentTheme.path, filepath);
       if (fs.existsSync(parent)) {
-        return parent
+        return parent;
       }
     }
   }
@@ -408,8 +432,8 @@ module.exports = class App {
    * @returns {string|undefined}
    */
 
-  resolveSiteAgreementFile (filepath) {
-    return path.resolve(this.vuepressDir, filepath)
+  resolveSiteAgreementFile(filepath) {
+    return path.resolve(this.vuepressDir, filepath);
   }
 
   /**
@@ -426,23 +450,23 @@ module.exports = class App {
    * @api public
    */
 
-  getSiteData () {
-    const { locales } = this.siteConfig
+  getSiteData() {
+    const { locales } = this.siteConfig;
     if (locales) {
-      Object.keys(locales).forEach(path => {
-        locales[path].path = path
-      })
+      Object.keys(locales).forEach((path) => {
+        locales[path].path = path;
+      });
     }
 
     return {
-      title: this.siteConfig.title || '',
-      description: this.siteConfig.description || '',
+      title: this.siteConfig.title || "",
+      description: this.siteConfig.description || "",
       base: this.base,
       headTags: this.siteConfig.head || [],
-      pages: this.pages.map(page => page.toJson()),
+      pages: this.pages.map((page) => page.toJson()),
       themeConfig: this.siteConfig.themeConfig || {},
-      locales
-    }
+      locales,
+    };
   }
 
   /**
@@ -453,8 +477,8 @@ module.exports = class App {
    * @api public
    */
 
-  getLibFilePath (relative) {
-    return path.join(this.libDir, relative)
+  getLibFilePath(relative) {
+    return path.join(this.libDir, relative);
   }
 
   /**
@@ -464,26 +488,30 @@ module.exports = class App {
    * @api public
    */
 
-  async dev () {
-    this.devProcess = new DevProcess(this)
-    await this.devProcess.process()
-    const error = await new Promise(resolve => {
+  async dev() {
+    this.devProcess = new DevProcess(this);
+    await this.devProcess.process();
+    const error = await new Promise((resolve) => {
       try {
         this.devProcess
-            .on('fileChanged', ({ type, target }) => {
-              console.log(`Reload due to ${chalk.red(type)} ${chalk.cyan(path.relative(this.sourceDir, target))}`)
-              this.process()
-            })
-            .createServer()
-            .listen(resolve)
+          .on("fileChanged", ({ type, target }) => {
+            console.log(
+              `Reload due to ${chalk.red(type)} ${chalk.cyan(
+                path.relative(this.sourceDir, target)
+              )}`
+            );
+            this.process();
+          })
+          .createServer()
+          .listen(resolve);
       } catch (err) {
-        resolve(err)
+        resolve(err);
       }
-    })
+    });
     if (error) {
-      throw error
+      throw error;
     }
-    return this
+    return this;
   }
 
   /**
@@ -493,10 +521,10 @@ module.exports = class App {
    * @api public
    */
 
-  async build () {
-    this.buildProcess = new BuildProcess(this)
-    await this.buildProcess.process()
-    await this.buildProcess.render()
-    return this
+  async build() {
+    this.buildProcess = new BuildProcess(this);
+    await this.buildProcess.process();
+    await this.buildProcess.render();
+    return this;
   }
-}
+};

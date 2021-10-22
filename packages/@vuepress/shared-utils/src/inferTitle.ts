@@ -1,4 +1,4 @@
-import deeplyParseHeaders from './deeplyParseHeaders'
+import deeplyParseHeaders from "./deeplyParseHeaders";
 
 /**
  * Infer a page's title via frontmatter and content.
@@ -8,15 +8,18 @@ import deeplyParseHeaders from './deeplyParseHeaders'
  * @returns {*}
  */
 
-export = function (frontmatter: Record<string, any>, strippedContent: string): string | void {
+export = function (
+  frontmatter: Record<string, any>,
+  strippedContent: string
+): string | void {
   if (frontmatter.title) {
-    return deeplyParseHeaders(frontmatter.title)
+    return deeplyParseHeaders(frontmatter.title);
   }
   if (frontmatter.home) {
-    return 'Home'
+    return "Home";
   }
-  const match = strippedContent.trim().match(/^#+\s+(.*)/)
+  const match = strippedContent.trim().match(/^#+\s+(.*)/);
   if (match) {
-    return deeplyParseHeaders(match[1])
+    return deeplyParseHeaders(match[1]);
   }
-}
+};

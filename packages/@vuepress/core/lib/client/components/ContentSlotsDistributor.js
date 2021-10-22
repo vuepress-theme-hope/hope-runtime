@@ -2,16 +2,15 @@ export default {
   functional: true,
   props: {
     slotKey: String,
-    required: true
+    required: true,
   },
-  render (h, { props, slots }) {
-    return h('div',
+  render(h, { props, slots }) {
+    return h(
+      "div",
       {
-        class: [
-          `content__${props.slotKey}`
-        ]
+        class: [`content__${props.slotKey}`],
       },
       slots()[props.slotKey]
-    )
-  }
-}
+    );
+  },
+};

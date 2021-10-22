@@ -1,51 +1,51 @@
 <script>
 /* global _bsa */
-const ID = 'bsa-cpc-script'
+const ID = "bsa-cpc-script";
 
 export default {
-  name: 'BuySellAds',
+  name: "BuySellAds",
 
   watch: {
-    '$route' (to, from) {
+    $route(to, from) {
       if (to.path !== from.path) {
-        this.$refs.ads.innerHTML = ''
-        this.load()
+        this.$refs.ads.innerHTML = "";
+        this.load();
       }
-    }
+    },
   },
 
-  mounted () {
+  mounted() {
     if (!document.getElementById(ID)) {
-      const s = document.createElement('script')
-      s.id = ID
-      s.src = `//m.servedby-buysellads.com/monetization.js`
-      document.head.appendChild(s)
+      const s = document.createElement("script");
+      s.id = ID;
+      s.src = `//m.servedby-buysellads.com/monetization.js`;
+      document.head.appendChild(s);
       s.onload = () => {
-        this.load()
-      }
+        this.load();
+      };
     } else {
-      this.load()
+      this.load();
     }
   },
 
   methods: {
-    load () {
-      if (typeof _bsa !== 'undefined' && _bsa) {
-        _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
-          target: '.bsa-cpc',
-          align: 'horizontal',
-          disable_css: 'true'
-        })
+    load() {
+      if (typeof _bsa !== "undefined" && _bsa) {
+        _bsa.init("default", "CKYD62QM", "placement:vuejsorg", {
+          target: ".bsa-cpc",
+          align: "horizontal",
+          disable_css: "true",
+        });
       }
-    }
+    },
   },
 
-  render (h) {
-    return h('div', { class: 'bsa-cpc-wrapper' }, [
-      h('div', { ref: 'ads', class: 'bsa-cpc' })
-    ])
-  }
-}
+  render(h) {
+    return h("div", { class: "bsa-cpc-wrapper" }, [
+      h("div", { ref: "ads", class: "bsa-cpc" }),
+    ]);
+  },
+};
 </script>
 
 <style lang="stylus">

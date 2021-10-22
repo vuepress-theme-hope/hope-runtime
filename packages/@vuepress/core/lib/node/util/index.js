@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /**
  * Normalize head tag config.
@@ -8,17 +8,17 @@
  */
 
 exports.normalizeHeadTag = function (tag) {
-  if (typeof tag === 'string') {
-    tag = [tag]
+  if (typeof tag === "string") {
+    tag = [tag];
   }
-  const tagName = tag[0]
+  const tagName = tag[0];
   return {
     tagName,
     attributes: tag[1] || {},
-    innerHTML: tag[2] || '',
-    closeTag: !(tagName === 'meta' || tagName === 'link')
-  }
-}
+    innerHTML: tag[2] || "",
+    closeTag: !(tagName === "meta" || tagName === "link"),
+  };
+};
 
 /**
  * Use webpack-merge to merge user's config into default config.
@@ -30,18 +30,18 @@ exports.normalizeHeadTag = function (tag) {
  */
 
 exports.applyUserWebpackConfig = function (userConfig, config, isServer) {
-  const merge = require('webpack-merge')
-  if (typeof userConfig === 'object') {
-    return merge(config, userConfig)
+  const merge = require("webpack-merge");
+  if (typeof userConfig === "object") {
+    return merge(config, userConfig);
   }
-  if (typeof userConfig === 'function') {
-    const res = userConfig(config, isServer)
-    if (res && typeof res === 'object') {
-      return merge(config, res)
+  if (typeof userConfig === "function") {
+    const res = userConfig(config, isServer);
+    if (res && typeof res === "object") {
+      return merge(config, res);
     }
   }
-  return config
-}
+  return config;
+};
 
 /**
  * Infer date.
@@ -51,19 +51,19 @@ exports.applyUserWebpackConfig = function (userConfig, config, isServer) {
  * @returns {null|string}
  */
 
-const DATE_RE = /(\d{4}-\d{1,2}(-\d{1,2})?)-(.*)/
-exports.DATE_RE = DATE_RE
+const DATE_RE = /(\d{4}-\d{1,2}(-\d{1,2})?)-(.*)/;
+exports.DATE_RE = DATE_RE;
 
 exports.inferDate = function (frontmatter = {}, filename, dirname) {
-  let matches
+  let matches;
 
   if (frontmatter.date) {
-    return frontmatter.date
+    return frontmatter.date;
   } else if (filename && (matches = filename.match(DATE_RE))) {
-    return matches[1]
+    return matches[1];
   } else if (dirname && (matches = dirname.match(DATE_RE))) {
-    return matches[1]
+    return matches[1];
   } else {
-    return null
+    return null;
   }
-}
+};

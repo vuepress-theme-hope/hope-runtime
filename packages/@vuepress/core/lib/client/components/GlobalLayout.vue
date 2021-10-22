@@ -3,32 +3,35 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import { setGlobalInfo } from '@app/util'
+import Vue from "vue";
+import { setGlobalInfo } from "@app/util";
 
 export default {
-  name: 'GlobalLayout',
+  name: "GlobalLayout",
 
   computed: {
-    layout () {
-      const layout = this.getLayout()
-      setGlobalInfo('layout', layout)
-      return Vue.component(layout)
-    }
+    layout() {
+      const layout = this.getLayout();
+      setGlobalInfo("layout", layout);
+      return Vue.component(layout);
+    },
   },
 
   methods: {
-    getLayout () {
+    getLayout() {
       if (this.$page.path) {
-        const layout = this.$page.frontmatter.layout
-        if (layout && (this.$vuepress.getLayoutAsyncComponent(layout)
-          || this.$vuepress.getVueComponent(layout))) {
-          return layout
+        const layout = this.$page.frontmatter.layout;
+        if (
+          layout &&
+          (this.$vuepress.getLayoutAsyncComponent(layout) ||
+            this.$vuepress.getVueComponent(layout))
+        ) {
+          return layout;
         }
-        return 'Layout'
+        return "Layout";
       }
-      return 'NotFound'
-    }
-  }
-}
+      return "NotFound";
+    },
+  },
+};
 </script>
