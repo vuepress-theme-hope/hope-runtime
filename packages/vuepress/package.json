@@ -18,6 +18,12 @@
   },
   "license": "MIT",
   "author": "Evan You",
+  "maintainers": [
+    {
+      "name": "ULIVZ",
+      "email": "chl814@foxmail.com"
+    }
+  ],
   "main": "index.js",
   "bin": {
     "vuepress": "cli.js"
@@ -31,10 +37,10 @@
   "dependencies": {
     "@vuepress/core": "1.8.2",
     "@vuepress/theme-default": "1.8.2",
-    "cac": "^6.5.6",
-    "envinfo": "^7.2.0",
-    "opencollective-postinstall": "^2.0.2",
-    "update-notifier": "^4.0.0"
+    "cac": "^6.7.11",
+    "envinfo": "^7.8.1",
+    "opencollective-postinstall": "^2.0.3",
+    "update-notifier": "^5.1.0"
   },
   "engines": {
     "node": ">=8.6"
@@ -42,11 +48,5 @@
   "collective": {
     "type": "opencollective",
     "url": "https://opencollective.com/vuepress"
-  },
-  "maintainers": [
-    {
-      "name": "ULIVZ",
-      "email": "chl814@foxmail.com"
-    }
-  ]
+  }
 }

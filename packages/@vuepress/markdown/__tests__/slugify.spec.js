@@ -1,12 +1,16 @@
 import { Md } from "./util";
-import anchor from "markdown-it-anchor";
+import anchorPlugin from "markdown-it-anchor";
 import slugify from "../../shared-utils/lib/slugify.js";
 
-const mdS = Md().use(anchor, {
+const mdS = Md().use(anchorPlugin, {
+  level: [1, 2, 3, 4, 5, 6],
   slugify,
-  permalink: true,
-  permalinkBefore: true,
-  permalinkSymbol: "#",
+  permalink: anchorPlugin.permalink.ariaHidden({
+    class: "header-anchor",
+    symbol: "#",
+    space: true,
+    placement: "before",
+  }),
 });
 
 const asserts = {

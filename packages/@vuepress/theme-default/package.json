@@ -19,25 +19,25 @@
   },
   "license": "MIT",
   "author": "Evan You",
-  "main": "index.js",
-  "dependencies": {
-    "@vuepress/plugin-active-header-links": "1.8.2",
-    "@vuepress/plugin-nprogress": "1.8.2",
-    "@vuepress/plugin-search": "1.8.2",
-    "docsearch.js": "^2.5.2",
-    "lodash": "^4.17.15",
-    "stylus": "^0.54.8",
-    "stylus-loader": "^3.0.2",
-    "vuepress-plugin-container": "^2.0.2",
-    "vuepress-plugin-smooth-scroll": "^0.0.3"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
   "maintainers": [
     {
       "name": "ULIVZ",
       "email": "chl814@foxmail.com"
     }
-  ]
+  ],
+  "main": "index.js",
+  "dependencies": {
+    "@vuepress/plugin-active-header-links": "1.8.2",
+    "@vuepress/plugin-nprogress": "1.8.2",
+    "@vuepress/plugin-search": "1.8.2",
+    "docsearch.js": "^2.6.3",
+    "lodash": "^4.17.21",
+    "stylus": "^0.55.0",
+    "stylus-loader": "^3.0.2",
+    "vuepress-plugin-container": "^2.1.5",
+    "vuepress-plugin-smooth-scroll": "^0.0.10"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

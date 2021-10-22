@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`markdown page should extract any content above <!-- more --> as excerpt 1`] = `
-<h1 id="excerpt"><a class="header-anchor" href="#excerpt">#</a> Excerpt</h1>
+<h1 id="excerpt" tabindex="-1"><a class="header-anchor" href="#excerpt">#</a> Excerpt</h1>
 <p>Blablabla...</p>
 `;
 
