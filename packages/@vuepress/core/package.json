@@ -47,7 +47,7 @@
     "file-loader": "^3.0.1",
     "js-yaml": "^3.13.1",
     "lru-cache": "^6.0.0",
-    "mini-css-extract-plugin": "0.6.0",
+    "mini-css-extract-plugin": "1.6.2",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "portfinder": "^1.0.28",
     "postcss-loader": "^3.0.0",
