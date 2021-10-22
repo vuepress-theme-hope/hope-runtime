@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { normalizeHeadTag } = require("../util/index");
 
 /**
@@ -17,12 +18,12 @@ module.exports = class HeadPlugin {
 
   apply(compiler) {
     compiler.hooks.compilation.tap("vuepress-site-data", (compilation) => {
-      compilation.hooks.htmlWebpackPluginAlterAssetTags.tapAsync(
+      HtmlWebpackPlugin.getHooks(compilation).alterAssetTagGroups.tapAsync(
         "vuepress-site-data",
         (data, cb) => {
           try {
             this.tags.forEach((tag) => {
-              data.head.push(normalizeHeadTag(tag));
+              data.headTags.push(normalizeHeadTag(tag));
             });
           } catch (e) {
             return cb(e);

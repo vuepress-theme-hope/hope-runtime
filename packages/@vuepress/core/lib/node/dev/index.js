@@ -165,15 +165,11 @@ module.exports = class DevProcess extends EventEmitter {
     // resolve webpack config
     let config = createClientConfig(this.context);
 
-    config
-      .plugin("html")
-      // using a fork of html-webpack-plugin to avoid it requiring webpack
-      // internals from an incompatible version.
-      .use(require("vuepress-html-webpack-plugin"), [
-        {
-          template: this.context.devTemplate,
-        },
-      ]);
+    config.plugin("html").use(require("html-webpack-plugin"), [
+      {
+        template: this.context.devTemplate,
+      },
+    ]);
 
     config.plugin("site-data").use(HeadPlugin, [
       {
