@@ -4,20 +4,23 @@ This is a forked version from the origin [vuepress v1](https://github.com/vuejs/
 
 Since nobody is maintaining VuePress V1, it has a few known bugs and outdated deps. So here is this runtime for:
 
-- Update deps to avoid deps conflict (which means droping Node V10)
+- Update deps to avoid outdated deps and security problems (which means droping Node V10)
 - Bug fixes
 
 ## Changes
 
 With latest deps:
 
-- webpack V5
-- markdown-it V12
+- [x] markdown-it V12
+- [x] postcss V8
+- [ ] webpack V5
 - ... and so on
 
 Bug fixes:
 
-- Broken Media links containing none-ASII characters
+- [x] Markdown render issues in old markdown-it versions
+- [x] File watching
+- [ ] Broken Media links containing none-ASII characters in markdown
 - ... and so on
 
 ## Why should you use this intead of staying in V1
