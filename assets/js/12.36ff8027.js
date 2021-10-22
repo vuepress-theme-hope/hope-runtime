@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[12],{381:function(t,e,n){"use strict";n.r(e);var r={functional:!0,props:{title:{type:String,required:!0}},render:function(t,e){var n=e.props,r=e.slots;return t("div",{class:["upgrade-path"]},[t("h4",n.title||"Upgrade Path"),r().default])}},p=n(19),a=Object(p.a)(r,void 0,void 0,!1,null,null,null);e.default=a.exports}}]);
