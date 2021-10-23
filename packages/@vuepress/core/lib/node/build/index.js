@@ -180,9 +180,7 @@ module.exports = class Build extends EventEmitter {
     try {
       html = await this.renderer.renderToString(context);
     } catch (e) {
-      console.error(
-        logger.error(chalk.red(`Error rendering ${pagePath}:`), false)
-      );
+      console.error(logger.error(chalk.red(`Error rendering ${pagePath}:`)));
       throw e;
     }
     const filename = pagePath.replace(/\/$/, "/index.html").replace(/^\//, "");
