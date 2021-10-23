@@ -20,6 +20,7 @@
   "author": "Evan You",
   "scripts": {
     "build": "vuepress build docs --temp .temp",
+    "build:debug": "node --trace-warnings ../../node_modules/vuepress/cli.js build docs  --temp .temp",
     "dev": "vuepress dev docs --temp .temp",
     "show-help": "vuepress --help",
     "view-info": "vuepress view-info docs --temp .temp"
