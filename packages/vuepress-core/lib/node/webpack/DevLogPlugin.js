@@ -54,7 +54,7 @@ module.exports = class DevLogPlugin {
         logger.developer(
           `It took a total of ${chalk.cyan(
             `${duration}ms`
-          )} to run the ${chalk.cyan("vuepress dev")} for the first time.`
+          )} to run the ${chalk.cyan("hopepress dev")} for the first time.`
         );
       }
     });

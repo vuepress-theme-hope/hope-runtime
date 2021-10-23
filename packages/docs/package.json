@@ -19,11 +19,11 @@
   "license": "MIT",
   "author": "Evan You",
   "scripts": {
-    "build": "vuepress build docs --temp .temp",
+    "build": "hopepress build docs --temp .temp",
     "build:debug": "node --trace-warnings ../../node_modules/@mr-hope/vuepress-runtime/cli.js build docs  --temp .temp",
-    "dev": "vuepress dev docs --temp .temp",
-    "show-help": "vuepress --help",
-    "view-info": "vuepress view-info docs --temp .temp"
+    "dev": "hopepress dev docs --temp .temp",
+    "show-help": "hopepress --help",
+    "view-info": "hopepress view-info docs --temp .temp"
   },
   "devDependencies": {
     "@mr-hope/vuepress-runtime": "1.9.0-alpha.0",

@@ -26,7 +26,7 @@
   ],
   "main": "index.js",
   "bin": {
-    "vuepress": "cli.js"
+    "hopepress": "cli.js"
   },
   "browserslist": [
     ">1%"

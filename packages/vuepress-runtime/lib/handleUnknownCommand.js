@@ -97,13 +97,13 @@ function registerUnknownCommands(cli, options) {
       console.log();
       logger.tip(
         `Did you miss to specify the target docs dir? e.g. ${chalk.cyan(
-          `vuepress ${commandName} [targetDir]`
+          `hopepress ${commandName} [targetDir]`
         )}.`
       );
       logger.tip(
         `A custom command registered by a plugin requires VuePress to locate your site configuration like ${chalk.cyan(
-          "vuepress dev"
-        )} or ${chalk.cyan("vuepress build")}.`
+          "hopepress dev"
+        )} or ${chalk.cyan("hopepress build")}.`
       );
       console.log();
       process.exit(1);

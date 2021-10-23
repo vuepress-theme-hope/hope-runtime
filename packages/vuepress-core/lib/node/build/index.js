@@ -126,7 +126,7 @@ module.exports = class Build extends EventEmitter {
     logger.developer(
       `It took a total of ${chalk.cyan(
         `${duration}ms`
-      )} to run the ${chalk.cyan("vuepress build")}.`
+      )} to run the ${chalk.cyan("hopepress build")}.`
     );
     console.log();
   }
