@@ -1,1 +1,1 @@
-    new Vue()
+    new Vue();

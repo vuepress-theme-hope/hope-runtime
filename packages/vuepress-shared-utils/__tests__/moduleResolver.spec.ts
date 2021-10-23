@@ -14,7 +14,7 @@ import {
 } from "../src/moduleResolver";
 import hash from "hash-sum";
 
-const MOCK_RELATIVE = "../../../../__mocks__";
+const MOCK_RELATIVE = "../../../__mocks__";
 
 function loadMockModule(name: string) {
   return require(`${MOCK_RELATIVE}/${name}`);
