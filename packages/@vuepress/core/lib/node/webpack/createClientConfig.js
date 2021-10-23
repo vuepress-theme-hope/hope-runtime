@@ -6,6 +6,7 @@
 
 module.exports = function createClientConfig(ctx) {
   const { env } = require("@vuepress/shared-utils");
+  const VueSSRClientPlugin = require("vue-server-renderer/client-plugin");
   const createBaseConfig = require("./createBaseConfig");
   const safeParser = require("postcss-safe-parser");
 
@@ -13,30 +14,11 @@ module.exports = function createClientConfig(ctx) {
 
   config.entry("app").add(ctx.getLibFilePath("client/clientEntry.js"));
 
-  config.node.merge({
-    // prevent webpack from injecting useless setImmediate polyfill because Vue
-    // source contains it (although only uses it if it's native).
-    setImmediate: false,
-    global: false,
-    process: false,
-    // prevent webpack from injecting mocks to Node native modules
-    // that does not make sense for the client
-    dgram: "empty",
-    fs: "empty",
-    net: "empty",
-    tls: "empty",
-    child_process: "empty",
-  });
+  config.node.merge({ global: false });
 
   // generate client manifest only during build
   if (process.env.NODE_ENV === "production") {
-    // This is a temp build of vue-server-renderer/client-plugin.
-    // TODO Switch back to original after problems are resolved.
-    // Fixes two things:
-    // 1. Include CSS in preload files
-    // 2. filter out useless styles.xxxxx.js chunk from mini-css-extract-plugin
-    // https://github.com/webpack-contrib/mini-css-extract-plugin/issues/85
-    config.plugin("ssr-client").use(require("./ClientPlugin"), [
+    config.plugin("ssr-client").use(VueSSRClientPlugin, [
       {
         filename: "manifest/client.json",
       },
@@ -54,8 +36,6 @@ module.exports = function createClientConfig(ctx) {
           },
         },
       ]);
-  } else {
-    config.plugin("hmr").use(require("webpack/lib/HotModuleReplacementPlugin"));
   }
 
   if (!env.isDebug) {

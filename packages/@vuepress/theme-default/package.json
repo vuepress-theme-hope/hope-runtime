@@ -33,7 +33,7 @@
     "docsearch.js": "^2.6.3",
     "lodash": "^4.17.21",
     "stylus": "^0.55.0",
-    "stylus-loader": "^4.3.3",
+    "stylus-loader": "^6.2.0",
     "vuepress-plugin-container": "^2.1.5",
     "vuepress-plugin-smooth-scroll": "^0.0.10"
   },

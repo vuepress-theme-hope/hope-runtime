@@ -209,36 +209,47 @@ module.exports = class DevProcess extends EventEmitter {
 
     const serverConfig = Object.assign(
       {
-        disableHostCheck: true,
+        allowedHosts: "all",
         compress: true,
-        clientLogLevel: "error",
+
+        client: {
+          logging: "error",
+          overlay: false,
+        },
+
+        devMiddleware: {
+          publicPath: this.context.base,
+        },
+
         hot: true,
-        quiet: true,
         headers: {
           "access-control-allow-origin": "*",
         },
         open: this.context.options.open,
-        publicPath: this.context.base,
-        watchOptions: {
-          ignored: [
-            (x) => {
-              if (x.includes(this.context.tempPath)) {
-                return false;
-              }
-              return /node_modules/.test(x);
-            },
-          ],
+
+        static: {
+          directory: contentBase,
+          watch: {
+            ignored: [
+              (x) => {
+                if (x.includes(this.context.tempPath)) {
+                  return false;
+                }
+                return /node_modules/.test(x);
+              },
+            ],
+          },
         },
+
         historyApiFallback: {
           disableDotRule: true,
           rewrites: [
             { from: /./, to: path.posix.join(this.context.base, "index.html") },
           ],
         },
-        overlay: false,
+
         host: this.host,
-        contentBase,
-        before: (app, server) => {
+        onBeforeSetupMiddleware: ({ app, server }) => {
           if (fs.existsSync(contentBase)) {
             app.use(this.context.base, require("express").static(contentBase));
           }
@@ -249,17 +260,15 @@ module.exports = class DevProcess extends EventEmitter {
             server
           );
         },
-        after: (app, server) => {
+        onAfterSetupMiddleware: ({ app, server }) => {
           this.context.pluginAPI.applySyncOption("afterDevServer", app, server);
         },
       },
       this.context.siteConfig.devServer || {}
     );
 
-    WebpackDevServer.addDevServerEntrypoints(this.webpackConfig, serverConfig);
-
     const compiler = webpack(this.webpackConfig);
-    this.server = new WebpackDevServer(compiler, serverConfig);
+    this.server = new WebpackDevServer(serverConfig, compiler);
     return this;
   }
 

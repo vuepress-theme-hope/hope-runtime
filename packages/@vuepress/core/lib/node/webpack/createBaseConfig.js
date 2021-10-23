@@ -46,7 +46,7 @@ module.exports = function createBaseConfig(context, isServer) {
   if (env.isDebug) {
     config.devtool("source-map");
   } else if (!isProd) {
-    config.devtool("cheap-module-eval-source-map");
+    config.devtool("eval-cheap-module-source-map");
   }
 
   const modulePaths = getModulePaths();
@@ -113,79 +113,6 @@ module.exports = function createBaseConfig(context, isServer) {
     .use("pug-plain-loader")
     .loader("pug-plain-loader")
     .end();
-
-  const evergreen =
-    typeof siteConfig.evergreen === "function"
-      ? siteConfig.evergreen()
-      : siteConfig.evergreen;
-  if (!evergreen) {
-    const libDir = path.join(__dirname, "..");
-    config.module
-      .rule("js")
-      .test(/\.jsx?$/)
-      .exclude.add((filePath) => {
-        // transpile lib directory
-        if (filePath.startsWith(libDir)) {
-          return false;
-        }
-
-        // transpile js in vue files and md files
-        if (/\.(vue|md)\.js$/.test(filePath)) {
-          return false;
-        }
-
-        // transpile all core packages and vuepress related packages.
-        // i.e.
-        // @vuepress/*
-        // vuepress-*
-        if (
-          /(@vuepress[/\\][^/\\]*|vuepress-[^/\\]*)[/\\](?!node_modules).*\.js$/.test(
-            filePath
-          )
-        ) {
-          return false;
-        }
-
-        // transpile @babel/runtime until fix for babel/babel#7597 is released
-        if (filePath.includes(path.join("@babel", "runtime"))) {
-          return false;
-        }
-
-        // don't transpile node_modules
-        return /node_modules/.test(filePath);
-      })
-      .end()
-      .use("cache-loader")
-      .loader("cache-loader")
-      .options({
-        cacheDirectory,
-        cacheIdentifier: finalCacheIdentifier,
-      })
-      .end()
-      .use("babel-loader")
-      .loader("babel-loader")
-      .options({
-        // do not pick local project babel config (.babelrc)
-        babelrc: false,
-        // do not pick local project babel config (babel.config.js)
-        // ref: http://babeljs.io/docs/en/config-files
-        configFile: false,
-        presets: [
-          [
-            require.resolve("@vue/babel-preset-app"),
-            {
-              entryFiles: [
-                path.resolve(
-                  __dirname,
-                  "../../client",
-                  isServer ? "serverEntry.js" : "clientEntry.js"
-                ),
-              ],
-            },
-          ],
-        ],
-      });
-  }
 
   config.module
     .rule("images")
