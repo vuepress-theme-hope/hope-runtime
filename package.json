@@ -2,9 +2,7 @@
   "private": true,
   "description": "Minimalistic doc generator with Vue component based layout system",
   "workspaces": [
-    "packages/@vuepress/*",
-    "packages/vuepress",
-    "packages/docs"
+    "packages/*"
   ],
   "scripts": {
     "boot": "node scripts/bootstrap.js",
@@ -25,7 +23,7 @@
     "remote-version": "node scripts/remote-version.js",
     "show-help": "yarn workspace docs show-help",
     "test": "node scripts/test.js",
-    "tsc": "yarn workspace @vuepress/shared-utils tsc",
+    "tsc": "yarn workspace @mr-hope/vuepress-shared-utils tsc",
     "unregister-vuepress": "lerna exec --scope vuepress -- yarn unlink",
     "view-info": "yarn tsc && yarn workspace docs view-info"
   },

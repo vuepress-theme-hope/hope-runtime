@@ -1,0 +1,37 @@
+{
+  "name": "@mr-hope/vuepress-markdown-loader",
+  "version": "1.9.0-alpha.0",
+  "description": "markdown-loader for vuepress",
+  "keywords": [
+    "documentation",
+    "generator",
+    "vue",
+    "vuepress"
+  ],
+  "homepage": "https://github.com/vuepress-theme-hope/hope-runtime/blob/main/packages/vuepress-markdown-loader#readme",
+  "bugs": {
+    "url": "https://github.com/vuepress-theme-hope/hope-runtime/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vuepress-theme-hope/hope-runtime.git",
+    "directory": "packages/vuepress-markdown-loader"
+  },
+  "license": "MIT",
+  "author": "Evan You",
+  "maintainers": [
+    {
+      "name": "ULIVZ",
+      "email": "chl814@foxmail.com"
+    }
+  ],
+  "main": "index.js",
+  "dependencies": {
+    "@mr-hope/vuepress-markdown": "1.9.0-alpha.0",
+    "loader-utils": "^2.0.0",
+    "lru-cache": "^6.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

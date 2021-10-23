@@ -1,10 +1,10 @@
 // create package.json and README for packages that don't have one yet
 
 const fs = require("fs");
-const { path } = require("@vuepress/shared-utils");
-const baseVersion = require("../packages/@vuepress/core/package.json").version;
+const { path } = require("@mr-hope/vuepress-shared-utils");
+const baseVersion = require("../packages/vuepress-core/package.json").version;
 
-const packagesDir = path.resolve(__dirname, "../packages/@vuepress");
+const packagesDir = path.resolve(__dirname, "../packages");
 const files = fs.readdirSync(packagesDir);
 
 files.forEach((pkg) => {
@@ -18,7 +18,7 @@ files.forEach((pkg) => {
   const pkgPath = path.join(packagesDir, pkg, `package.json`);
   if (!fs.existsSync(pkgPath)) {
     const json = {
-      name: `@vuepress/${pkg}`,
+      name: `@mr-hope/${pkg}`,
       version: baseVersion,
       description: desc,
       main: "index.js",
@@ -27,22 +27,22 @@ files.forEach((pkg) => {
       },
       repository: {
         type: "git",
-        url: "git+https://github.com/vuejs/vuepress.git",
+        url: "git+https://github.com/vuepress-theme-hope/hope-runtime.git",
       },
       keywords: ["documentation", "vue", "vuepress", "generator"],
-      author: "ULIVZ <chl814@foxmail.com>",
+      author: "Mister-Hope <zhangbowang@1998@gmail.com>",
       license: "MIT",
       bugs: {
-        url: "https://github.com/vuejs/vuepress/issues",
+        url: "https://github.com/vuepress-theme-hope/hope-runtime/issues",
       },
-      homepage: `https://github.com/vuejs/vuepress/blob/master/packages/@vuepress/${pkg}#readme`,
+      homepage: `https://github.com/vuepress-theme-hope/hope-runtime/blob/main/packages/${pkg}#readme`,
     };
     fs.writeFileSync(pkgPath, JSON.stringify(json, null, 2));
   }
 
   const readmePath = path.join(packagesDir, pkg, `README.md`);
   if (!fs.existsSync(readmePath)) {
-    fs.writeFileSync(readmePath, `# @vuepress/${pkg}\n\n> ${desc}`);
+    fs.writeFileSync(readmePath, `# @mr-hope/${pkg}\n\n> ${desc}`);
   }
 
   const npmIgnorePath = path.join(packagesDir, pkg, `.npmignore`);

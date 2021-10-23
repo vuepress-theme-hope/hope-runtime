@@ -27,7 +27,7 @@
 
 假设你现在在 `foo/one.md` 中：
 
-``` md
+```md
 [Home](/) <!-- 跳转到根部的 README.md -->
 [foo](/foo/) <!-- 跳转到 foo 文件夹的 index.html -->
 [foo heading](./#heading) <!-- 跳转到 foo/index.html 的特定标题位置 -->
@@ -51,7 +51,7 @@ You can customize this by setting [config.markdown.pageSuffix](../config/README.
 
 ### 外部链接
 
-外部的链接将会被自动地设置为  `target="_blank" rel="noopener noreferrer"`:
+外部的链接将会被自动地设置为 `target="_blank" rel="noopener noreferrer"`:
 
 - [vuejs.org](https://vuejs.org)
 - [VuePress on GitHub](https://github.com/vuejs/vuepress)
@@ -62,7 +62,7 @@ You can customize this by setting [config.markdown.pageSuffix](../config/README.
 
 VuePress 提供了对 [YAML front matter](https://jekyllrb.com/docs/frontmatter/) 开箱即用的支持:
 
-``` yaml
+```yaml
 ---
 title: Blogging Like a Hacker
 lang: en-US
@@ -87,11 +87,11 @@ lang: en-US
 
 **输出**
 
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
+| Tables        |      Are      |  Cool |
+| ------------- | :-----------: | ----: |
 | col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+| col 2 is      |   centered    |   $12 |
+| zebra stripes |   are neat    |    $1 |
 
 ## Emoji
 
@@ -123,7 +123,7 @@ lang: en-US
 
 <!--lint enable no-shortcut-reference-link no-undefined-references-->
 
-目录（Table of Contents）的渲染可以通过  [`markdown.toc`](../config/README.md#markdown-toc) 选项来配置。
+目录（Table of Contents）的渲染可以通过 [`markdown.toc`](../config/README.md#markdown-toc) 选项来配置。
 
 ## 自定义容器 <Badge text="默认主题"/>
 
@@ -173,9 +173,11 @@ lang: en-US
 :::
 
 ::: details 点击查看代码
+
 ```js
-console.log('你好，VuePress！')
+console.log("你好，VuePress！");
 ```
+
 :::
 ````
 
@@ -184,9 +186,11 @@ console.log('你好，VuePress！')
 :::
 
 ::: details 点击查看代码
+
 ```js
-console.log('你好，VuePress！')
+console.log("你好，VuePress！");
 ```
+
 :::
 
 **参考:**
@@ -210,11 +214,11 @@ export default {
 
 **输出**
 
-``` js
+```js
 export default {
-  name: 'MyComponent',
+  name: "MyComponent",
   // ...
-}
+};
 ```
 
 **输入**
@@ -234,19 +238,13 @@ export default {
 
 **输出**
 
-``` html
+```html
 <ul>
-  <li
-    v-for="todo in todos"
-    :key="todo.id"
-  >
-    {{ todo.text }}
-  </li>
+  <li v-for="todo in todos" :key="todo.id">{{ todo.text }}</li>
 </ul>
 ```
 
 在 Prism 的网站上查看 [合法的语言列表](https://prismjs.com/#languages-list)。
-
 
 ## 代码块中的行高亮
 
@@ -266,7 +264,7 @@ export default {
 
 **输出**
 
-``` js{4}
+```js{4}
 export default {
   data () {
     return {
@@ -302,7 +300,7 @@ export default { // Highlighted
 
 **Output**
 
-``` js{1,4,6-8}
+```js{1,4,6-8}
 export default { // Highlighted
   data () {
     return {
@@ -320,12 +318,12 @@ export default { // Highlighted
 
 你可以通过配置来为每个代码块显示行号：
 
-``` js
+```js
 module.exports = {
   markdown: {
-    lineNumbers: true
-  }
-}
+    lineNumbers: true,
+  },
+};
 ```
 
 <!-- TODO Support line numbers for specific fence block -->
@@ -364,27 +362,27 @@ module.exports = {
 
 你可以通过下述的语法导入已经存在的文件中的代码段：
 
-``` md
+```md
 <<< @/filepath
 ```
 
 它也支持 [行高亮](#代码块中的行高亮)：
 
-``` md
+```md
 <<< @/filepath{highlightLines}
 ```
 
 **输入**
 
 ```
-<<< @/../@vuepress/markdown/__tests__/fragments/snippet.js{2}
+<<< @/../vuepress-markdown/__tests__/fragments/snippet.js{2}
 ```
 
 **输出**
 
 <!--lint disable strong-marker-->
 
-<<< @/../@vuepress/markdown/__tests__/fragments/snippet.js{2}
+<<< @/../vuepress-markdown/__tests__/fragments/snippet.js{2}
 
 <!--lint enable strong-marker-->
 
@@ -392,20 +390,19 @@ module.exports = {
 由于代码段的导入将在 webpack 编译之前执行，因此你无法使用 webpack 中的路径别名，此处的 `@` 默认值是 `process.cwd()`。
 :::
 
-
 为了只导入对应部分的代码，你也可运用 [VS Code region](https://code.visualstudio.com/docs/editor/codebasics#_folding)。你可以在文件路径后方的 `#` 紧接着提供一个自定义的区域名称（预设为 `snippet` ）
 
 **输入**
 
-``` md
-<<< @/../@vuepress/markdown/__tests__/fragments/snippet-with-region.js#snippet{1}
+```md
+<<< @/../vuepress-markdown/__tests__/fragments/snippet-with-region.js#snippet{1}
 ```
 
 **代码文件**
 
 <!--lint disable strong-marker-->
 
-<<< @/../@vuepress/markdown/__tests__/fragments/snippet-with-region.js
+<<< @/../vuepress-markdown/__tests__/fragments/snippet-with-region.js
 
 <!--lint enable strong-marker-->
 
@@ -413,7 +410,7 @@ module.exports = {
 
 <!--lint disable strong-marker-->
 
-<<< @/../@vuepress/markdown/__tests__/fragments/snippet-with-region.js#snippet{1}
+<<< @/../vuepress-markdown/__tests__/fragments/snippet-with-region.js#snippet{1}
 
 <!--lint enable strong-marker-->
 
@@ -421,17 +418,17 @@ module.exports = {
 
 VuePress 使用 [markdown-it](https://github.com/markdown-it/markdown-it) 来渲染 Markdown，上述大多数的拓展也都是通过自定义的插件实现的。想要进一步的话，你可以通过 `.vuepress/config.js` 的 `markdown` 选项，来对当前的 `markdown-it` 实例做一些自定义的配置：
 
-``` js
+```js
 module.exports = {
   markdown: {
     // markdown-it-anchor 的选项
     anchor: { permalink: false },
     // markdown-it-toc 的选项
     toc: { includeLevel: [1, 2] },
-    extendMarkdown: md => {
-      // 使用更多的 markdown-it 插件!
-      md.use(require('markdown-it-xxx'))
-    }
-  }
-}
+    extendMarkdown: (md) => {
+      // 使用更多的 markdown-it 插件!
+      md.use(require("markdown-it-xxx"));
+    },
+  },
+};
 ```

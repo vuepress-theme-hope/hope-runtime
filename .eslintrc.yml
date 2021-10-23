@@ -11,8 +11,8 @@ extends:
 
 ignorePatterns:
   - node_modules/
-  - packages/@vuepress/shared-utils/lib
-  - packages/@vuepress/shared-utils/types
+  - packages/vuepress-shared-utils/lib
+  - packages/vuepress-shared-utils/types
 
 overrides:
   - files:

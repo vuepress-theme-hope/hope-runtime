@@ -3,11 +3,11 @@ const { readdirSync } = require("fs");
 const chalk = require("chalk");
 const execa = require("execa");
 
-const PRIVATE_PACKAGES = ["theme-vue", ".DS_Store"];
+const PRIVATE_PACKAGES = ["docs"];
 
-const scopePackages = readdirSync(join(__dirname, "../packages/@vuepress"))
+const scopePackages = readdirSync(join(__dirname, "../packages"))
   .filter((n) => !PRIVATE_PACKAGES.includes(n))
-  .map((n) => `@vuepress/${n}`);
+  .map((n) => `@mr-hope/${n}`);
 
 async function log() {
   await Promise.all(

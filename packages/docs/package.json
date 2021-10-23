@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "version": "1.8.2",
+  "version": "1.9.0-alpha.0",
   "private": true,
   "description": "docs of VuePress",
   "keywords": [
@@ -8,25 +8,25 @@
     "generator",
     "vue"
   ],
-  "homepage": "https://github.com/vuejs/vuepress#readme",
+  "homepage": "https://github.com/vuepress-theme-hope/hope-runtime#readme",
   "bugs": {
-    "url": "https://github.com/vuejs/vuepress/issues"
+    "url": "https://github.com/vuepress-theme-hope/hope-runtime/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vuejs/vuepress.git"
+    "url": "git+https://github.com/vuepress-theme-hope/hope-runtime.git"
   },
   "license": "MIT",
   "author": "Evan You",
   "scripts": {
     "build": "vuepress build docs --temp .temp",
-    "build:debug": "node --trace-warnings ../../node_modules/vuepress/cli.js build docs  --temp .temp",
+    "build:debug": "node --trace-warnings ../../node_modules/@mr-hope/vuepress-runtime/cli.js build docs  --temp .temp",
     "dev": "vuepress dev docs --temp .temp",
     "show-help": "vuepress --help",
     "view-info": "vuepress view-info docs --temp .temp"
   },
   "devDependencies": {
-    "vuepress": "1.8.2",
+    "@mr-hope/vuepress-runtime": "1.9.0-alpha.0",
     "vuepress-plugin-flowchart": "^1.4.3"
   }
 }

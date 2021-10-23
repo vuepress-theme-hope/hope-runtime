@@ -1,0 +1,44 @@
+{
+  "name": "@mr-hope/vuepress-runtime",
+  "version": "1.9.0-alpha.0",
+  "description": "Minimalistic doc generator with Vue component based layout system",
+  "keywords": [
+    "documentation",
+    "generator",
+    "vue"
+  ],
+  "homepage": "https://github.com/vuepress-theme-hope/hope-runtime#readme",
+  "bugs": {
+    "url": "https://github.com/vuepress-theme-hope/hope-runtime/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vuepress-theme-hope/hope-runtime.git",
+    "directory": "packages/vuepress"
+  },
+  "license": "MIT",
+  "author": "Evan You",
+  "maintainers": [
+    {
+      "name": "ULIVZ",
+      "email": "chl814@foxmail.com"
+    }
+  ],
+  "main": "index.js",
+  "bin": {
+    "vuepress": "cli.js"
+  },
+  "browserslist": [
+    ">1%"
+  ],
+  "dependencies": {
+    "@mr-hope/vuepress-core": "1.9.0-alpha.0",
+    "@mr-hope/vuepress-theme-default": "1.9.0-alpha.0",
+    "cac": "^6.7.11",
+    "envinfo": "^7.8.1",
+    "update-notifier": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=12.12"
+  }
+}
