@@ -1,4 +1,4 @@
-const { fs, path, logger, chalk } = require("@vuepress/shared-utils");
+const { fs, path } = require("@vuepress/shared-utils");
 
 /**
  * @param options
@@ -11,19 +11,6 @@ module.exports = (options, ctx) => ({
 
   async ready() {
     const { sourceDir, writeTemp, themeAPI } = ctx;
-
-    const overridePath = path.resolve(sourceDir, ".vuepress/override.styl");
-    const hasUserOverride = fs.existsSync(overridePath);
-
-    if (hasUserOverride) {
-      logger.tip(
-        `${chalk.magenta(
-          "override.styl"
-        )} has been deprecated from v1.0.0, using ${chalk.cyan(
-          ".vuepress/styles/palette.styl"
-        )} instead.\n`
-      );
-    }
 
     const themeStyle = path.resolve(themeAPI.theme.path, "styles/index.styl");
     const userStyle = path.resolve(sourceDir, ".vuepress/styles/index.styl");

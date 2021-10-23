@@ -7,7 +7,7 @@
 const { chalk } = require("@vuepress/shared-utils");
 const envinfo = require("envinfo");
 
-const { dev, build, eject } = require("@vuepress/core");
+const { dev, build } = require("@vuepress/core");
 const { path, logger, env } = require("@vuepress/shared-utils");
 const { wrapCommand } = require("./util");
 
@@ -73,16 +73,6 @@ module.exports = function (cli, options) {
         ...options,
         ...commandOptions,
       });
-    });
-
-  cli
-    .command(
-      "eject [targetDir]",
-      "copy the default theme into .vuepress/theme for customization."
-    )
-    .option("--debug", "eject in debug mode")
-    .action((dir = ".") => {
-      wrapCommand(eject)(path.resolve(dir));
     });
 
   cli

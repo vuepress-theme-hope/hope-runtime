@@ -31,4 +31,3 @@ exports.version = version;
 exports.createApp = createApp;
 exports.dev = dev;
 exports.build = build;
-exports.eject = require("./eject");
