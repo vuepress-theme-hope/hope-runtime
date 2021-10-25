@@ -6,10 +6,6 @@ const VuepressPackages = fs.readdirSync(path.resolve(__dirname, "packages"));
 module.exports = {
   extends: ["@commitlint/config-conventional"],
   rules: {
-    "scope-enum": [
-      2,
-      "always",
-      ["cli", "zh", ...VuepressPackages].map((name) => `$${name}`),
-    ],
+    "scope-enum": [2, "always", ["cli", "zh", ...VuepressPackages]],
   },
 };
