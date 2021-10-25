@@ -25,7 +25,8 @@ import sort from "./sort";
 import toAbsolutePath from "./toAbsolutePath";
 import tryChain from "./tryChain";
 import unescapeHtml from "./unescapeHtml";
-
+import * as link from "./link";
+import { htmlEscape } from "./htmlEscape";
 import chalk from "chalk";
 import fs from "fs-extra";
 import path from "path";
@@ -62,6 +63,8 @@ export {
   toAbsolutePath,
   tryChain,
   unescapeHtml,
+  link,
+  htmlEscape,
   chalk,
   fs,
   path,
