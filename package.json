@@ -55,7 +55,7 @@
     "@types/node": "^16.11.3",
     "@types/semver": "^7.3.9",
     "@typescript-eslint/eslint-plugin": "5.1.0",
-    "@typescript-eslint/parser": "5.1.0",
+    "@typescript-eslint/parser": "5.2.0",
     "@vue/eslint-config-prettier": "6.0.0",
     "@vue/eslint-config-typescript": "8.0.0",
     "conventional-changelog-cli": "^2.1.1",
