@@ -33,7 +33,7 @@
     "@mr-hope/vuepress-markdown": "1.9.0-alpha.0",
     "@mr-hope/vuepress-markdown-loader": "1.9.0-alpha.0",
     "@mr-hope/vuepress-shared-utils": "1.9.0-alpha.0",
-    "@vue/babel-preset-app": "^4.5.14",
+    "@vue/babel-preset-app": "^4.5.15",
     "@vuepress/plugin-register-components": "1.8.2",
     "autoprefixer": "^10.3.7",
     "babel-loader": "^8.2.3",
