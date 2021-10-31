@@ -1,3 +1,24 @@
+# [1.9.0-alpha.1](https://github.com/vuepress-theme-hope/hope-runtime/compare/v1.8.2...v1.9.0-alpha.1) (2021-10-31)
+
+### Bug Fixes
+
+- **$core:** escape meta tags correctly (fix [#2831](https://github.com/vuepress-theme-hope/hope-runtime/issues/2831)) ([#2832](https://github.com/vuepress-theme-hope/hope-runtime/issues/2832)) ([b877b3b](https://github.com/vuepress-theme-hope/hope-runtime/commit/b877b3b43d2a4ad9694453bef9165ecaba622933))
+- fix ci ([819774e](https://github.com/vuepress-theme-hope/hope-runtime/commit/819774e887a463b9c8cb99b36935bd45056b6c2b))
+- fix tests ([3a3ccc1](https://github.com/vuepress-theme-hope/hope-runtime/commit/3a3ccc1c43f733f407778c9ae8528f95994ae5ad))
+- fix tsconfig ([2f6bcac](https://github.com/vuepress-theme-hope/hope-runtime/commit/2f6bcac041bb7bf7f6bc0519882694fd748a397f))
+- **vuepress-core:** try to fix 404 isssue ([16937e5](https://github.com/vuepress-theme-hope/hope-runtime/commit/16937e5ad57c9231feb0f8ea8e5f967b4e5526d1))
+
+### Features
+
+- imrpove logger ([4e42542](https://github.com/vuepress-theme-hope/hope-runtime/commit/4e425421f857a9b6214357e86d3d84d3a21c124d))
+- remove eject and overide hint ([c9877ea](https://github.com/vuepress-theme-hope/hope-runtime/commit/c9877eacc426e120efda4fd61e289ddaf72dbe11))
+- rename packages ([7b9af05](https://github.com/vuepress-theme-hope/hope-runtime/commit/7b9af053c87feefa80ec7dac396d4024c73d05f6))
+- update html-webpack-plugin ([caa1f8e](https://github.com/vuepress-theme-hope/hope-runtime/commit/caa1f8e5a905ba1ecb41608069d818d19547f12c))
+- update jest version ([044ecaf](https://github.com/vuepress-theme-hope/hope-runtime/commit/044ecaf5cac4eb57a3304eb9ec8847a19732e34f))
+- update some deps ([d8dc445](https://github.com/vuepress-theme-hope/hope-runtime/commit/d8dc445f2fd2aa7c4b66cc6c52ac6da9a3803381))
+- **vuepress-markdown:** update plugins ([a3359cf](https://github.com/vuepress-theme-hope/hope-runtime/commit/a3359cfc1a933d275b5dbfa4c5654fe03d0daf50))
+- **vuepress-shared-utils:** add more helper function ([7bfbe8b](https://github.com/vuepress-theme-hope/hope-runtime/commit/7bfbe8b5198957611fea9c27cc840f12f4a518ae))
+
 ## [1.8.2](https://github.com/vuejs/vuepress/compare/v1.8.1...v1.8.2) (2021-02-18)
 
 ### Bug Fixes
