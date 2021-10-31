@@ -1,7 +1,7 @@
 import { getFragment } from "@mr-hope/vuepress-test-utils";
 import { Md } from "./util";
 import hoist from "../lib/hoist.js";
-import { dataReturnable } from "../index.js";
+import { dataReturnable } from "../lib";
 
 const md = Md().set({ html: true });
 const mdH = Md().set({ html: true }).use(hoist);

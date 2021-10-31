@@ -1,6 +1,6 @@
 import { Md } from "./util";
 import link from "../lib/link.js";
-import { dataReturnable } from "../index.js";
+import { dataReturnable } from "../lib";
 
 const EXTERNAL_ATTRS = {
   target: "_blank",
