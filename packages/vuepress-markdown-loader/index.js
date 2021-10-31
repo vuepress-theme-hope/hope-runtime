@@ -15,7 +15,7 @@ const {
   extractHeaders,
 } = require("@mr-hope/vuepress-shared-utils");
 const LRU = require("lru-cache");
-const md = require("@mr-hope/vuepress-markdown");
+const { createMarkdown } = require("@mr-hope/vuepress-markdown");
 
 const cache = new LRU({ max: 1000 });
 const devCache = new LRU({ max: 1000 });
@@ -33,7 +33,7 @@ module.exports = function (src) {
     options;
   let { markdown } = options;
   if (!markdown) {
-    markdown = md();
+    markdown = createMarkdown();
   }
 
   // we implement a manual cache here because this loader is chained before

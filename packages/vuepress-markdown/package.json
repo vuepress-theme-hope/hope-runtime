@@ -26,7 +26,7 @@
       "email": "chl814@foxmail.com"
     }
   ],
-  "main": "index.js",
+  "main": "lib/index.js",
   "dependencies": {
     "@mr-hope/vuepress-shared-utils": "1.9.0-alpha.0",
     "markdown-it": "^12.2.0",

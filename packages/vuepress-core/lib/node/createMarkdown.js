@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-const createMarkdown = require("@mr-hope/vuepress-markdown");
+const { createMarkdown } = require("@mr-hope/vuepress-markdown");
 
 /**
  * Expose createMarkdown.

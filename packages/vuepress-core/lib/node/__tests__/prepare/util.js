@@ -1,5 +1,5 @@
 const { fs, path } = require("@mr-hope/vuepress-shared-utils");
-const createMarkdown = require("@mr-hope/vuepress-markdown");
+const { createMarkdown } = require("@mr-hope/vuepress-markdown");
 
 const docsBaseDir = path.resolve(__dirname, "fixtures/docs");
 
