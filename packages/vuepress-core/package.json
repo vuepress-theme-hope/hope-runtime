@@ -1,6 +1,6 @@
 {
   "name": "@mr-hope/vuepress-core",
-  "version": "1.9.0-alpha.0",
+  "version": "1.9.0-alpha.1",
   "description": "Minimalistic doc generator with Vue component based layout system",
   "keywords": [
     "documentation",
@@ -30,9 +30,9 @@
   ],
   "dependencies": {
     "@babel/core": "^7.15.8",
-    "@mr-hope/vuepress-markdown": "1.9.0-alpha.0",
-    "@mr-hope/vuepress-markdown-loader": "1.9.0-alpha.0",
-    "@mr-hope/vuepress-shared-utils": "1.9.0-alpha.0",
+    "@mr-hope/vuepress-markdown": "1.9.0-alpha.1",
+    "@mr-hope/vuepress-markdown-loader": "1.9.0-alpha.1",
+    "@mr-hope/vuepress-shared-utils": "1.9.0-alpha.1",
     "@vue/babel-preset-app": "^4.5.15",
     "@vuepress/plugin-register-components": "1.8.2",
     "autoprefixer": "^10.4.0",
