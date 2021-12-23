@@ -2721,10 +2721,10 @@
   dependencies:
     lodash.debounce "^4.0.8"
 
-"@vuepress/plugin-nprogress@1.8.2":
-  version "1.8.2"
-  resolved "https://registry.yarnpkg.com/@vuepress/plugin-nprogress/-/plugin-nprogress-1.8.2.tgz#dc6c082925420c8c59ecb7fc2d4a9401f6d4664a"
-  integrity sha512-3TOBee2NM3WLr1tdjDTGfrAMggjN+OlEPyKyv8FqThsVkDYhw48O3HwqlThp9KX7UbL3ExxIFBwWRFLC+kYrdw==
+"@vuepress/plugin-nprogress@1.9.1":
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@vuepress/plugin-nprogress/-/plugin-nprogress-1.9.1.tgz#7d3216bbcdd416b1f10394e0b78d0b133edcc0e1"
+  integrity sha512-cY6qu4rLaaz+ZCecI0BUGG4GChbGen6xJZzlZjB7rpY52ZFX+zyF4pmreoOUHSinNcd/CTIsWeoGb/vygBim2w==
   dependencies:
     nprogress "^0.2.0"
 
