@@ -8588,6 +8588,11 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+lru-cache@^7.7.2:
+  version "7.7.2"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-7.7.2.tgz#9a31f924b96e0e238c1f981bf3fcc2563aafb5f0"
+  integrity sha512-WkdIOIF7HkfVHXxKLjhH6lyAxSFoSO5NZpZS9cH8Oe5rAI2ZDrVmIweDAZUHqIhl0zasQUprVVR8uv2yggYYvw==
+
 make-dir@^2.0.0, make-dir@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-2.1.0.tgz#5f0310e18b8be898cc07009295a30ae41e91e6f5"
