@@ -22,7 +22,7 @@
   "main": "index.js",
   "dependencies": {
     "@babel/core": "^7.15.8",
-    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-env": "^7.17.12",
     "@mr-hope/vuepress-core": "1.9.0-alpha.1",
     "@mr-hope/vuepress-shared-utils": "1.9.0-alpha.1",
     "@types/jest": "^27.0.2",
