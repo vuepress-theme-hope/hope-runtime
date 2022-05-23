@@ -27,6 +27,6 @@
   },
   "devDependencies": {
     "@mr-hope/vuepress-runtime": "1.9.0-alpha.1",
-    "vuepress-plugin-flowchart": "^1.4.3"
+    "vuepress-plugin-flowchart": "^1.5.0"
   }
 }
