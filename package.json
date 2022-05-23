@@ -58,7 +58,7 @@
     "@typescript-eslint/eslint-plugin": "5.2.0",
     "@typescript-eslint/parser": "5.2.0",
     "@vue/eslint-config-prettier": "6.0.0",
-    "@vue/eslint-config-typescript": "8.0.0",
+    "@vue/eslint-config-typescript": "9.0.0",
     "conventional-changelog-cli": "2.1.1",
     "eslint": "8.16.0",
     "eslint-config-prettier": "8.3.0",
