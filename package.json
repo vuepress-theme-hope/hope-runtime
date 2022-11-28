@@ -67,7 +67,7 @@
     "husky": "7.0.4",
     "inquirer": "8.2.0",
     "lerna": "4.0.0",
-    "lint-staged": "11.2.6",
+    "lint-staged": "13.0.4",
     "markdownlint-cli": "0.29.0",
     "minimist": "1.2.5",
     "prettier": "2.4.1",
